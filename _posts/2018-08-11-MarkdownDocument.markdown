@@ -4,7 +4,7 @@ title:  "마크다운 문법 정리!!"
 date:   2018-08-11 18:00:00
 author: 송타
 categories: Etc.
-tags: markdown, 마크다운, 정리, github.io
+tags: markdown 마크다운 정리 github.io
 ---
 
 ddd
