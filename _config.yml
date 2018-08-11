@@ -9,7 +9,7 @@ exclude:
   - "/vendor/"
 
 # Site settings
-title: 데츠쿨의 블로그
+title: 송타의 블로그
 subtitle: "웹 프로그래밍 세상"
 email: iamsjy0808@gmail.com
 name: song
@@ -70,13 +70,6 @@ descriptions:
 #     desc: Follow me on Twitter            # Description to display as link title, etc
 #     share: true                           # Include in the "Share" section of posts
 social:
-  - name: Twitter
-    icon: twitter
-    username: 
-    url: https://twitter.com/TheBenCentra
-    desc: Follow me on Twitter
-    share: false
-
   - name: Facebook
     icon: facebook
     username: thebencentra
@@ -182,6 +175,8 @@ social:
     desc: Share to Hacker News
     share: false
 
+disqus_shortname: iamsjy17.github.io
+
 # Social sharing protocols
 # These are for automatically generating sharing metadata for FB and Twitter
 # OS Protocol is for sharing the source of your site, if you're interested. For more, see osprotocol.com
@@ -196,3 +191,5 @@ protocols:
     os_repo: "https://github.com/bencentra/centrarium.com"
     os_rcs_type: "git"
     os_src: "git@github.com:bencentra/centrarium.com.git"
+
+  
