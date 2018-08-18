@@ -29,10 +29,18 @@ ul.default {
 }
 
 code {
-  background-color: #eee;
+  color: #000000;
+  background-color: #cffdfd ;
   display: inline-block;
-  border-radius: 3px;
+  border-radius: 1px;
   padding: 0 3px;
+}
+
+blockquote {
+	background: #FFF;
+	margin:0;
+	padding: 5px 20px;
+	border-left: 10px solid #CCC;
 }
 
 pre code.hljs {
@@ -271,6 +279,15 @@ pre code.hljs {
     }
     .post-content {
       padding: 1em 0;
+      
+      h1, h2 {
+        margin-bottom: 10px;
+        margin-top: 30px;
+      }
+
+      h1, h2, h3 {
+        border-bottom: 1px solid #CCC;
+      }
     }
     .tags {
       font-size: 0.9em;
