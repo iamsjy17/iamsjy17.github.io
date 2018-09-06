@@ -114,38 +114,6 @@ tags: git git명령어
 
 - `git diff HEAD HEAD^`
 
-## diff
-
-#### 최근 commit 과 현재 파일 비교
-
-- `git diff HEAD`
-
-1. staged 상태만
-
-   - `git diff --cached` : 전체 파일 비교
-   - `git diff --cached 파일이름`: 특정 파일 비교
-
-2. unstaged 상태만
-
-   - `git diff`
-
-#### 변경된 라인이 아니라 word 를 보고 싶을 때
-
-- `git diff --color-words`
-- `git diff --word-diff`
-
-#### commit 간 비교
-
-- `git diff hash1 hash2`
-
-#### 브랜치간 비교
-
-- `git diff 브랜치1 브랜치2`
-
-#### 최근 commit 과 이전 commit 비교
-
-- `git diff HEAD HEAD^`
-
 ## log
 
 `git log`
