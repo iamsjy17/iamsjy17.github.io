@@ -123,3 +123,29 @@ git log 명령어는 시간 순으로 commit 이력을 보여준다.
 #### commit 의 상세한 변경 내용을 보고 싶을 때(n 개의 커밋에 대해 (생략가능))
 
 `git log -p -n`
+
+## patch
+
+#### 특정 Commit ID 를 지정하여 Patch 파일 만들기
+
+```
+git format-patch {Commit ID}
+```
+
+#### 최근 Commit 부터 n 개의 Commit 을 Patch 파일 생성
+
+```
+git format-patch -n
+```
+
+#### diff 를 이용한 patch 파일 생성
+
+```
+git diff > {Patch 파일명}
+```
+
+#### Patch 적용
+
+```
+git am {Patch 파일명}
+```
