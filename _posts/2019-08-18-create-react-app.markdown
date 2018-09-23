@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[React] create-react-app으로 React 시작하기"
+title: '[React] React 프로젝트 시작하기 (프로젝트 생성) '
 date: 2018-08-18 19:00:00
 author: 송타
 categories: React
