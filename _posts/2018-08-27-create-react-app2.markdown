@@ -1,6 +1,6 @@
 ---
 layout: post
-title: '[React] React 프로젝트 시작하기 (라이브러리 추가 및 환경설정)'
+title: "[React] React 프로젝트 시작하기 (라이브러리 추가 및 환경설정)"
 date: 2018-08-27 19:00:00
 author: 송타
 categories: React
@@ -94,6 +94,13 @@ yarn add sass-loader node-sass classnames
 2. loader 추가
    - `includePaths` : css 파일 import 시에 경로입력시 디렉터리 구조에 따라 길어지는 것을 간소화하기 위해 includePaths 를 지정해 줍니다. 여기서 `[paths.styles]`는 paths.js 에 미리 지정해둔 경로입니다.
 
+> CRA 2.0 부터 sass 를 기본적으로 지원하기 때문에 최신 create-react-app 을 사용한다면 위 부분은 생략해도 됩니다.
+> node-sass 만 추가하면 바로 사용할 수 있습니다.
+
+```
+yarn add node-sass classnames
+```
+
 #### paths 수정
 
 config 폴더 밑에 `paths.js` 파일이 있습니다. includePaths 등에서 경로를 간소화시켜서 사용하기 위해서 이 파일에 경로를 입력합니다.
@@ -117,6 +124,22 @@ module.exports = {
     }
   }
 }
+```
+
+> CRA 2.0 에서는 webpack 파일이 일부 수정되었습니다. 위와 같이 path 를 지정하지 않아도 아래와 같이 webpack config 파일을 수정하면 됩니다.
+
+```javascript
+        ...
+          {
+            test: sassRegex,
+            exclude: sassModuleRegex,
+            use: getStyleLoaders({ importLoaders: 2 }).concat({
+              loader: require.resolve("sass-loader"),
+              options: {
+                includePaths: [paths.appSrc + "/styles"]
+              }
+            })
+          },
 ```
 
 ### Redux
@@ -157,7 +180,7 @@ SPA, Single Page Application 개발을 위해서는 라우팅 기능이 필요�
 yarn add react-router-dom
 ```
 
-#### NODE_PATH 설정
+### NODE_PATH 설정
 
 SPA 는 여러개의 Page 를 가지고 있기 때문에, 폴더 구조가 복잡해 질 수 있습니다. 뎁스가 깊은 폴더 내에 있는 Component 에서 다른 Component 를 참조한다면 `../../../../../` 와 같은 소스가 많이 생겨나겠죠?
 
@@ -172,6 +195,12 @@ package.json 을 열어서 아래와 같이 수정해 주면 src 폴더를 기�
     "build": "NODE_PATH=src react-scripts build",
     ...
   }
+```
+
+또는 .env 파일을 루트 경로에 추가하여 아래와 같이 입력해주는 방법도 있다.
+
+```
+NODE_PATH=src
 ```
 
 ### 코드 스플리팅 설정
