@@ -7,32 +7,32 @@ categories: React
 tags: eslint prettier .eslintignore eslint-disable NODE_PATH
 ---
 
-안녕하세요. 송타입니다 ^^
+안녕하세요. 송타입니다.
 
-혹시 eslint 설정하고 config 나 serviceWorker 와 같은 linting 이 불필요한 파일에서 에러가 나서 해결방법을 찾고 계신가요..?
-아니면 NODE_PATH 를 설정했는데 eslint 에서 인식을 못해서 고생하시나요..?
+혹시 eslint 설정하고 config 나 serviceWorker 와 같은 linting 이 불필요한 파일에서 에러가 나서 해결방법을 찾고 계신가요?
+아니면 NODE_PATH 를 설정했는데 eslint 에서 인식을 못해서 고생하시나요?
 
 저는 그랬습니다..
 
-해결했다!! 하고 다음 번에 또 찾아보고 몇 번 반복하다가 포스팅을 남깁니다.
+해결했다!! 하고 새 프로젝트 만들 때 또 찾아보고 몇 번 반복하다가 포스팅을 남깁니다.
 
-## Eslint + prettier 설정
+### Eslint + prettier 설정
 
-### eslint 설치
+#### eslint 설치
 
 우선 vscode 의 market place 에서 eslint 를 찾아서 설치합니다.
 
-### .eslintrc 파일 추가
+#### .eslintrc 파일 추가
 
 eslint 를 적용하기 위해 프로젝트 루트 경로에 `.eslintrc.json` 파일을 추가합니다.
 바로 빨갛게 오류가 잔뜩 생기는 것을 볼 수 있으실 거에요. 일단은 무시하고 넘어갑시다.
 
-### prettier 설치
+#### prettier 설치
 
 다음으로 market place 에서 prettier 를 설치합니다.
 이 부분은 사실 필수는 아니에요. 그런데 `prettier`는 코드 포맷팅을 도와주는 plugin 으로 설치하시면 매우 편리합니다!
 
-### eslint 와 prettier 연동
+#### eslint 와 prettier 연동
 
 `prettier-eslint` 를 추가합니다.
 
@@ -50,7 +50,7 @@ yarn add --dev prettier-eslint
 }
 ```
 
-### airbnb 추가
+#### airbnb 추가
 
 ```
 yarn add eslint-config-airbnb
@@ -60,7 +60,7 @@ airbnb 는 가장 유명한? javascript 코딩 규칙입니다. 많은 곳에서
 
 그런데 매우 매우 까다로워서 사용하시다가 이건 좀 심하다 싶으신 것들은 꺼주시면 됩니다^^
 
-### .eslintrc 파일 수정
+#### .eslintrc 파일 수정
 
 그럼 .eslintrc 파일을 수정하여 airbnb 스타일을 사용하도록 합니다.
 아래 rules 아래에 규칙들을 추가하여 on/off 할 수 있습니다.
@@ -80,7 +80,7 @@ airbnb 는 가장 유명한? javascript 코딩 규칙입니다. 많은 곳에서
 }
 ```
 
-### linting 에서 파일 제외하기
+#### linting 에서 파일 제외하기
 
 에러가 무지막지하게 뜨시나요..?
 eslint 가 적용되지 않아도 되는 파일까지 포함되었다면 제외해줍니다.
@@ -93,7 +93,7 @@ linting 이 불필요한 파일들에 맨 위에 위와같이 주석을 추가�
 제가 제대로 설정을 못한건지 .eslintignore 파일을 추가해서 .gitignore 파일 처럼 만들어 보았는데 적용이 안되더라고요..
 해매다가 주석 한 줄 추가하니까 똭! 해결되었습니다.
 
-### NODE_PATH 인식
+#### NODE_PATH 인식
 
 `../../../components/header`와 같이 상대경로의 depth 가 깊어지면 가독성도 좋지 않고 실수할 여지도 많아집니다. 그렇기 때문에 NODE_PATH 를 지정하여 `src` 경로로부터 절대경로로 사용을 합니다.
 
@@ -118,4 +118,4 @@ _하는 방법은 리액트 시작하기 2 포스팅에 있습니다._
 }
 ```
 
-마음의 평안을 얻으셨길 바래요~~^^
+마음의 평안을 얻으셨길 바래요~~
