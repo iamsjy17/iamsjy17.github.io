@@ -6,53 +6,54 @@ gems:
   - jekyll-paginate
 
 exclude:
-  - '/vendor/'
+  - "/vendor/"
 
 # Site settings
-title: 송타의 블로그
-subtitle: '웹 프로그래밍 세상'
+title: "송"
+smalltitle: "튜디오"
+subtitle: "WEB . JAVASCRIPT . REACT . ELECTRON"
 email: iamsjy0808@gmail.com
 name: song
 description: >
-  Javascript, React.js, Node.js
+  Javascript, React.js, Node.js Electron
 # Base URL of site (i.e. /blog). It should always start with a slash,
 # and never end with a slash. Set it to a blank value if hosting at the
 # root of your server.
-baseurl: '' # the subpath of your site, e.g. /blog/
-url: 'http://bencentra.github.io' # the base hostname & protocol for your site
-cover: '/assets/header_image.jpg'
-logo: '/assets/logo.png'
+baseurl: "" # the subpath of your site, e.g. /blog/
+url: "http://bencentra.github.io" # the base hostname & protocol for your site
+cover: "/assets/header_image.jpg"
+logo: "/assets/logo.png"
 
 # Build settings
 markdown: kramdown
 paginate: 5
-paginate_path: '/page:num/'
+paginate_path: "/page:num/"
 inter_post_navigation: false
-highlightjs_theme: 'monokai-sublime'
+highlightjs_theme: "monokai-sublime"
 
 # Archive settings (see https://github.com/jekyll/jekyll-archives/)
 jekyll-archives:
   enabled:
     - categories
     - tags
-  layout: 'archive'
+  layout: "archive"
   permalinks:
-    category: '/category/:name/'
-    tag: '/tag/:name/'
+    category: "/category/:name/"
+    tag: "/tag/:name/"
 
 # Disqus comments
 # disqus_shortname: bencentra
 
 # Google analytics
-google_analytics_id: 'UA-126309784-1'
+google_analytics_id: "UA-126309784-1"
 
 # Category descriptions (for archive pages)
 descriptions:
   - cat: jekyll
-    desc: 'Posts describing Jekyll setup techniques.'
+    desc: "Posts describing Jekyll setup techniques."
 
   - cat: dummy
-    desc: 'Just some placeholder posts, lorem ipsum and the rest.'
+    desc: "Just some placeholder posts, lorem ipsum and the rest."
 
 # Social icons and sharing options
 #
@@ -168,7 +169,7 @@ social:
     desc: Share to Reddit
     share: false
 
-  - name: 'Hacker News'
+  - name: "Hacker News"
     icon: hacker-news
     ? username
     ? url
@@ -181,13 +182,13 @@ disqus_shortname: iamsjy17.github.io
 # These are for automatically generating sharing metadata for FB and Twitter
 # OS Protocol is for sharing the source of your site, if you're interested. For more, see osprotocol.com
 protocols:
-  fb_image: '/assets/logo.png'
+  fb_image: "/assets/logo.png"
   fb_image_width: 612
   fb_image_height: 605
-  fb_image_type: 'image/png'
+  fb_image_type: "image/png"
 
-  twitter_image: '/assets/logo.png'
+  twitter_image: "/assets/logo.png"
 
-  os_repo: 'https://github.com/bencentra/centrarium.com'
-  os_rcs_type: 'git'
-  os_src: 'git@github.com:bencentra/centrarium.com.git'
+  os_repo: "https://github.com/bencentra/centrarium.com"
+  os_rcs_type: "git"
+  os_src: "git@github.com:bencentra/centrarium.com.git"
