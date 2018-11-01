@@ -2,7 +2,7 @@
 layout: post
 title: "[React] React 프로젝트 시작하기 (라이브러리 추가 및 환경설정)"
 date: 2018-08-27 19:00:00
-author: 송타
+author: 송튜디오
 categories: React
 tags: React create-react-app
 ---
