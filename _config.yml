@@ -9,8 +9,9 @@ exclude:
   - "/vendor/"
 
 # Site settings
-title: "송"
-smalltitle: "튜디오"
+title: "송튜디오"
+_title1: "송"
+_title2: "튜디오"
 subtitle: "WEB . JAVASCRIPT . REACT . ELECTRON"
 email: iamsjy0808@gmail.com
 name: song
