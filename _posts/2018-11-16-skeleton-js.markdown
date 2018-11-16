@@ -9,7 +9,7 @@ tags: gulp babel eslint gulp-babel gulp-eslint git javascript
 
 javascript 프로젝트를 처음부터 git, gulp, babel, eslint등을 설정하면서 만들어 보도록 하겠습니다.
 
-### git
+### git & npm
 
 #### git 초기화
 
