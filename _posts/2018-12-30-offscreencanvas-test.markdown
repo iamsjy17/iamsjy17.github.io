@@ -3,7 +3,7 @@ layout: post
 title: "[HTML5] OffscreenCanvas 소개 및 예제 "
 date: 2018-12-30 19:00:00
 author: 송튜디오
-categories: React
+categories: HTML5
 tags: Canvas HTML5 OffscreenCanvas
 ---
 
