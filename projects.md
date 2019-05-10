@@ -7,7 +7,9 @@ permalink: /projects/
 ## Plotta.js 
 수학 함수와 데이터를 시각화하는 오픈소스 자바스크립트 라이브러리 
 
->url: https://github.com/iamsjy17/Plotta.js 
+#### 소개
+
+https://github.com/iamsjy17/Plotta.js 
 
 #### 진행기간 
 - 2018.12 ~ 2018.04 (1.0v)
