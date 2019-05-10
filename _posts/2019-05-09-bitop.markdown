@@ -7,8 +7,6 @@ categories: 알고리즘_기초
 tags: 비트조작
 ---
 
-# 비트 조작
-
 ### 비트 연산자
 
 - NOT
@@ -50,18 +48,18 @@ tags: 비트조작
 ### 비트 조작 할 때 알아야 할 사실들과 트릭들
 
 - `Os`는 모든 비트가 0인 값이고, `1s`는 모든 비트가 1인 값을 나타낸다.
-- ^
-  - x ^ 0s = x
-  - x ^ 1s = ~x
-  - x ^ x = 0
-- &
-  - x & 0s = 0
-  - x & 1s = x
-  - x & x = x
-- |
-  - x | 0s = x
-  - x | 1s = 1s
-  - x | x = x
+- `^`
+  - x `^` 0s = x
+  - x `^` 1s = ~x
+  - x `^` x = 0
+- `&`
+  - x `&` 0s = 0
+  - x `&` 1s = x
+  - x `&` x = x
+- `|`
+  - x `|` 0s = x
+  - x `|` 1s = 1s
+  - x `|` x = x
 
 ### 2의 보수와 음수
 
@@ -110,11 +108,10 @@ tags: 비트조작
 - 1을 i만큼 왼쪽으로 시프트하여 00010000과 같은 값을 만든다.
 - 그 다음 그 값을 num과 OR연산한다.
 - i번째를 제외한 나머지 비트들은 0과 OR연산을 하게 되므로 num에 아무 영향을 끼치지 않는다.
-   
 ```java
-    int setBit(int num, int i) {
-	    return num | (1 << i);
-    }
+  int setBit(int num, int i) {
+	  return num | (1 << i);
+  }
 ```
    
 #### Clear: 특정 비트값 지우기
@@ -122,10 +119,10 @@ tags: 비트조작
 - NOT 연산자를 이용해 (00010000)을 11101111과 같이 만든 뒤 num과 AND 연산을 수행한다.
 - 그러면 나머지 비트의 값은 변하지 않은 채 i번째 비트값만 삭제된다.  
 ```java
-int clearBit(int num, int i) {
-	int mask = ~(1 << i);
-	return num & mask;
-}
+  int clearBit(int num, int i) {
+	  int mask = ~(1 << i);
+	  return num & mask;
+  }
 ```
    
 #### Update : 특정 비트 값 갱신하기  
@@ -133,7 +130,6 @@ int clearBit(int num, int i) {
 - 우선 11101111과 같은 값을 이용해서 i번째 비트값을 삭제한다.
 - 그 뒤 바꾸자고 하는 값 v를 i번 쉬프트한다.
 - num의 i번째 비트만 v로 갱신한다.
-- 
 ```java
 int updateBit(int num, int i, int v) {
 	int mask = ~(1 << i);
