@@ -88,4 +88,4 @@ f(n, r){
 ## 참고
 
 - 코딩인터뷰 완전정복
-- [엔지니어대한민국]https://www.youtube.com/watch?v=VcCkPrGaKrs&list=PLjSkJdbr_gFYSUYfnF_OGXtnGs2d3vWg7&index=2&frags=wn
+- [엔지니어대한민국 유튜브](https://www.youtube.com/watch?v=VcCkPrGaKrs&list=PLjSkJdbr_gFYSUYfnF_OGXtnGs2d3vWg7&index=2&frags=wn)
