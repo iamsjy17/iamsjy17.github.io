@@ -116,13 +116,13 @@ function getNextPrime(flags, prime) {
 
 - AnB의 확률
   - A에 속해있으면서도 B에 속해 있을 확률
-  - P(AnB) = P(B|A)P(A)
+  - P(AnB) = P(B\|A)P(A)
   - 예) 1~10까지의 수 중 5이하 이면서, 짝수일 확률
   - 5이하일 확률 = 50%, 5이하 숫자 중 짝수일 확률 = 40%
   - 1/2 \* 2/5 = 1/5
   - 베이즈 정리
-    - P(AnB) = P(B|A)P(A) = P(A|B)P(B)
-    - P(A|B) = P(B|A)P(A) / P(B)
+    - P(AnB) = P(B\|A)P(A) = P(A\|B)P(B)
+    - P(A\|B) = P(B\|A)P(A) / P(B)
 - AuB의 확률
   - P(AuB) = P(A)+P(B)-P(AnB)
 
@@ -130,7 +130,7 @@ function getNextPrime(flags, prime) {
 
 - 독립성
   - A와 B가 독립사건(한 사건의 발생과 다른 사건의 발생 사이에 아무런 관계가 없는 경우)이라면, A가 B에 아무런 영향을 끼치지 않는다.
-  - P(B|A) = P(B)
+  - P(B\|A) = P(B)
   - P(AnB) = P(A)P(B)
 - 상호 배타성(mutual exclusivity)
   - A와 B가 상호 배타적(한 사건이 일어난 경우 다른 사건은 발생할 수 없는 경우)라면,
