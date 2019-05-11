@@ -121,13 +121,8 @@ function getNextPrime(flags, prime) {
   - 5이하일 확률 = 50%, 5이하 숫자 중 짝수일 확률 = 40%
   - 1/2 \* 2/5 = 1/5
   - 베이즈 정리
-<<<<<<< HEAD
-    - P(AnB) = P(B`|`A)P(A) = P(A`|`B)P(B)
-    - P(A`|`B) = P(B`|`A)P(A) / P(B)
-=======
     - P(AnB) = P(B|A)P(A) = P(A|B)P(B)
     - P(A|B) = P(B|A)P(A) / P(B)
->>>>>>> c5fe870e1b0cab101b3e7c9f716cd731dd216465
 - AuB의 확률
   - P(AuB) = P(A)+P(B)-P(AnB)
 
