@@ -7,6 +7,8 @@ categories: 알고리즘_기초
 tags: 힙 이진힙 heap binaryheap 힙정렬
 ---
 
+> 권오흠 교수님의 유튜브를 보고 정리한 내용입니다.
+
 ## 힙(heap)
 
 - Complete Binary Tree의 일종이면서 Heap의 특성을 만족해야한다.
