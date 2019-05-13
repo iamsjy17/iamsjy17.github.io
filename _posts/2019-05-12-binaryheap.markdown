@@ -7,8 +7,6 @@ categories: 알고리즘_기초
 tags: 힙 이진힙 heap binaryheap 힙정렬
 ---
 
-> 권오흠 교수님의 유튜브를 보고 정리한 내용입니다.
-
 ## 힙(heap)
 
 - Complete Binary Tree의 일종이면서 Heap의 특성을 만족해야한다.
@@ -43,18 +41,6 @@ tags: 힙 이진힙 heap binaryheap 힙정렬
 
 > Heap Sort에 활용하기에는 Max Heap이 더 간편하다.
 
-### 힙의 삽입과 삭제
-
-- 삽입
-  - 최소힙에 원소를 삽입할 때는 언제나 트리의 밑바닥부터 삽입을 시작한다. (밑바닥 가장 오른쪽)
-  - 그 다음 새로 삽입된 원소가 제대로 된 자리를 찾을 때까지 부모 노드와 교환해 나간다.
-  - O(logN)
-- 최대값 뽑아내기
-  - 최대값을 사용하는 것은 가장 위 원소를 사용하면된다.
-  - 그러나 삭제하는 것은 까다롭다.
-  - 최대 원소 제거 후 힙에 있는 가장 마지막 원소(밑바닥 가장 오른쪽)와 교환한다. 그리고 최대힙의 성질을 만족하도록, 해당 노드를 자식 노드와 교환해 나감으로써 밑으로 내보낸다.
-  - O(logN)
-
 ### Heapify(Max Heap)
 
 > Min Heap은 조건만 반대로 하면 된다.
@@ -69,8 +55,6 @@ tags: 힙 이진힙 heap binaryheap 힙정렬
 - Heapify의 시간 복잡도는 이진트리의 높이와 같다.
   - h = logn
   - O(logn)
-
-![Alt max Heap](/assets/img/2019-05-12-binaryheap/heapify.png)
 
 ```js
 //특정 노드를 기준으로 Heapify 연산을 수행하는 함수
@@ -103,12 +87,6 @@ MAX_HEAPIFY(A, i)
     - 2 \* O(logn) = O(logn)
     - O(n) + O(logn) = O(logn)
 
-![Alt max Heap](/assets/img/2019-05-12-binaryheap/makeheap.png)
-
-![Alt max Heap](/assets/img/2019-05-12-binaryheap/makeheap2.png)
-
-![Alt max Heap](/assets/img/2019-05-12-binaryheap/makeheap3.png)
-
 ```js
 BUILD_MAX_HEAP(A)
 {
@@ -129,9 +107,6 @@ BUILD_MAX_HEAP(A)
 5. 2~4번 반복한다.
 
 - 시간 복잡도 : O(nlogn)
-
-![Alt Heap Sort](/assets/img/2019-05-12-binaryheap/heapsort.png)
-![Alt Heap Sort](/assets/img/2019-05-12-binaryheap/heapsort2.png)
 
 ```js
 HEAPSORT(A)
