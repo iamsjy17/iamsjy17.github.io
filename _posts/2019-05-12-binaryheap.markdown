@@ -27,14 +27,14 @@ tags: 힙 이진힙 heap binaryheap 힙정렬
 
 ### 힙의 종류
 
+> Heap Sort에 활용하기에는 Max Heap이 더 간편하다.
+
 - 최대 힙(max heap)
   - 부모 노드의 키 값이 자식 노드의 키 값보다 크거나 같은 완전 이진 트리
   - 부모 노드 key >= 자식 노드 key
 - 최소 힙(min heap)
   - 부모 노드의 키 값이 자식 노드의 키 값보다 작거나 같은 완전 이진 트리
   - 부모 노드 key <= 자식 노드 key
-
-> Heap Sort에 활용하기에는 Max Heap이 더 간편하다.
 
 ### Heapify(Max Heap)
 
