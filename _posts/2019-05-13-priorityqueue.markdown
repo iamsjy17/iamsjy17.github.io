@@ -1,10 +1,10 @@
 ---
 layout: post
 title: "[알고리즘_기초] 힙과 힙 정렬"
-date: 2019-05-12 19:00:00
+date: 2019-05-13 19:00:00
 author: 송튜디오
 categories: 알고리즘_기초
-tags: 힙 이진힙 heap binaryheap 힙정렬
+tags: 힙 이진힙 우선순위큐 큐 priorityqueue
 ---
 
 ## 우선순위 큐
