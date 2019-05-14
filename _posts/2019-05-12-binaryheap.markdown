@@ -116,5 +116,5 @@ HEAPSORT(A)
 
 ## 참고
 
-- [권오흠 유튜브](https://www.youtube.com/watch?v=ihyg2OR8IR0&list=PL52K_8WQO5oUuH06MLOrah4h05TZ4n38l&index=13&t=0s)
+- [권오흠 교수님 유튜브](https://www.youtube.com/watch?v=ihyg2OR8IR0&list=PL52K_8WQO5oUuH06MLOrah4h05TZ4n38l&index=13&t=0s)
 - [Heee's Development Blog](https://gmlwjd9405.github.io/)

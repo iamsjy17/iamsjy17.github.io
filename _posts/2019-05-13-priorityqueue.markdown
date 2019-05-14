@@ -71,5 +71,5 @@ HEAP_EXTRACT_MAX(A)
 
 ## 참고
 
-- [권오흠 유튜브](https://www.youtube.com/watch?v=2bp2ZSS3O0g&list=PL52K_8WQO5oUuH06MLOrah4h05TZ4n38l&index=15)
+- [권오흠 교수님 유튜브](https://www.youtube.com/watch?v=2bp2ZSS3O0g&list=PL52K_8WQO5oUuH06MLOrah4h05TZ4n38l&index=15)
 - [Heee's Development Blog](https://gmlwjd9405.github.io/)
