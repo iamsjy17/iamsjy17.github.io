@@ -10,7 +10,7 @@ permalink: /projects/
 
 #### 소개
 
-https://github.com/iamsjy17/Plotta.js
+[Plotta.js github](https://github.com/iamsjy17/Plotta.js)
 
 ![Alt binomial](/assets/img/project/plotta_demo1.gif)
 ![Alt binomial](/assets/img/project/plotta_demo2.gif)
