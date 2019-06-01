@@ -65,4 +65,4 @@ function lcm(m, n) {
 ## 참고
 
 - 코딩인터뷰 완전정복
--
+- https://ko.wikipedia.org/wiki/최대공약수

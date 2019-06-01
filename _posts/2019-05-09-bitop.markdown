@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[알고리즘_기초] 비트 조작하기"
+title: "[알고리즘] 비트 조작하기"
 date: 2019-05-09 19:00:00
 author: 송튜디오
 categories: 알고리즘_기초

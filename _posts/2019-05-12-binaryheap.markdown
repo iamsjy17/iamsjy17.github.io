@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "[알고리즘_기초] 힙과 힙 정렬"
+title: "[알고리즘] 힙과 힙 정렬"
 date: 2019-05-12 19:00:00
 author: 송튜디오
-categories: 알고리즘_기초
+categories: 알고리즘_정렬
 tags: 힙 이진힙 heap binaryheap 힙정렬
 ---
 
