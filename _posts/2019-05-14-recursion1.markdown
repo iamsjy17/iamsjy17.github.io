@@ -94,10 +94,10 @@ function gcd(m, n) {
 ```js
 function printInBinary(n) {
   if (n < 2) {
-    console.log(n);
+    console.log(Math.floor(n));
   } else {
     printInBinary(n / 2);
-    console.log(n % 2);
+    console.log(Math.floor(n % 2));
   }
 }
 ```
