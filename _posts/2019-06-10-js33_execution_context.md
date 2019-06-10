@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[Javascript]실행 컨텍스트와 스코프 체인"
+title: "[Javascript]Execution Context와 Lexical Environment"
 date: 2019-06-10 19:00:00
 author: 송튜디오
 categories: Javascript
