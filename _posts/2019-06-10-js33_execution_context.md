@@ -609,6 +609,8 @@ FunctionExectionContext = {
 
 ## 참고
 
+- Learning Javascript
+- Inside Javascript
 - http://2ality.com/2011/04/ecmascript-5-spec-lexicalenvironment.html
 - https://blog.bitsrc.io/understanding-execution-context-and-execution-stack-in-javascript-1c9ea8642dd0
 - https://meetup.toast.com/posts/129
