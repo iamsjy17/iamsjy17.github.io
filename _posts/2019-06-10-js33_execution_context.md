@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[Javascript]Execution Context와 Lexical Environment"
+title: "[Javascript] Execution Context와 Lexical Environment"
 date: 2019-06-10 19:00:00
 author: 송튜디오
 categories: Javascript

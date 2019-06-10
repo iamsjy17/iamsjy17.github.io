@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[알고리즘]수학#4 이항계수(binomial coefficient)"
+title: "[알고리즘] 수학#4 이항계수(binomial coefficient)"
 date: 2019-06-04 19:00:00
 author: 송튜디오
 categories: 알고리즘_수학

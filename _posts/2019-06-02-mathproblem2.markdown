@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[알고리즘]수학#2 Fibonacci Number"
+title: "[알고리즘] 수학#2 Fibonacci Number"
 date: 2019-06-02 19:00:00
 author: 송튜디오
 categories: 알고리즘_수학

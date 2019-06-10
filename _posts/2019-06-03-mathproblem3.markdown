@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[알고리즘]수학#3 소수판별"
+title: "[알고리즘] 수학#3 소수판별"
 date: 2019-06-03 19:00:00
 author: 송튜디오
 categories: 알고리즘_수학
