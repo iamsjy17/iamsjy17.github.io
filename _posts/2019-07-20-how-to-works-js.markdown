@@ -60,13 +60,15 @@ tags: 호출스택 이벤트루프 callstack javascriptengine eventloop taskqueu
 
 > 호출 스택: 현재 프로그램 상에서 어디에 있는지를 기록하는 자료 구조
 
+
+
 #### 단일 호출 스택(single-thread)의 단점
 
 브라우저에서 호출 스택에 실행할 함수가 쌓여있는 동안은 다른 일을 할 수 없습니다. 이 상태를 `blocked`라 합니다. 이 상태에서 브라우저는 렌더링을 할 수도 없고, 다른 코드를 실행할 수도 없습니다.
 
-> 브라우저 자체가 동작을 하지 않음.
-> 매끄러운 화면 UI를 제공하지 못하게 됨.
-> 프로그램 동작 중에 이러한 현상은 사용자 경험을 완전히 망가뜨리는 일이다.
+- 브라우저 자체가 동작을 하지 않음.
+- 매끄러운 화면 UI를 제공하지 못하게 됨.
+- 프로그램 동작 중에 이러한 현상은 사용자 경험을 완전히 망가뜨리는 일이다.
 
 ```js
 var count = 0;
@@ -77,9 +79,19 @@ function stack() {
 stack();
 ```
 
+- Stack Overflow
+
 ![Alt StackOverFlow](/assets/img/howtoworksjs/stackoverflow1.png)
 
+
+
+- Error
+
 ![Alt StackOverFlow](/assets/img/howtoworksjs/stackoverflow2.png)
+
+
+
+- 브라우저 동작 멈춤
 
 ![Alt StackOverFlow](/assets/img/howtoworksjs/stackoverflow.gif)
 
@@ -91,9 +103,12 @@ stack();
 
 > 12540개는 정확한 숫자가 아니라 제 환경에서 테스트 1회 했을 때의 결과입니다. 대충 큰 숫자라고 여기시면 될 것 같습니다.
 
+
 이러한 문제를 해결하기 위해 이벤트 루프를 통한 동시성 확보를 해야 합니다.
 
 > 적절하게 task를 쪼개서 비동기 호출을 하고, 또 중간중간 렌더링등 UI 갱신이 이루어질 수 있도록 호출 스택이 빈 상태가 되도록 해주어야 한다.
+
+
 
 #### 이벤트 루프
 
@@ -103,7 +118,7 @@ stack();
 
 이러한 반복을 이벤트 루프에서는 `tick`이라고 합니다.
 
-##### task queue
+-  task queue
 
 MDN에서 Event Loop을 보면 다음과 같이 간이 코드가 나옵니다.
 task queue는 message를 기다리고 message가 들어오면 task queue에 추가합니다.
@@ -114,7 +129,7 @@ while (queue.waitForMessage()) {
 }
 ```
 
-##### event loop
+-  event loop
 
 그리고 이벤트 루프는 가장 오래된 메시지부터 시작해서 메시지를 처리합니다.
 메시지를 처리한다는 것은 함수를 실행해서 호출 스택에 올린다는 뜻입니다.
@@ -133,13 +148,18 @@ while (eventLoop.waitForTask()) {
 
 실제 실행 자체는 호출 스택에 올라가서 수행이 되므로 Run-to-completion 으로 동작합니다.
 
+
 > Run-to-completion : Each message is processed completely before any other message is processed.
+
+
 
 ### 5. Task Queue vs Microtask Queue Animation vs Animation Frames
 
 앞에 까지는 모든 비동기 동작이 Task Queue에 쌓이는 것처럼 설명을 했는데, 실제로는 여러 Queue가 존재합니다.
 
 ES6에 들어오면서 새로운 컨셉인 `Microtask Queue`가 도입되었습니다. Microtask Queue는 Task Queue와 동일한 계층에 존재하고 프로미스의 비동기 호출 시 Microtask Queue에 쌓이게 됩니다.
+
+
 
 #### 1) Microtask Queue vs Task Queue
 
@@ -220,6 +240,8 @@ console.log("script end");
 //5. Stack의 모든 Task 실행완료
 ```
 
+
+
 #### 2) Microtask Queue vs Task Queue vs Animation Frames
 
 Microtask 외에도 Queue는 또 있습니다. 바로 requestAnimationFrame에 의해 등록되는 `Animation Frames`입니다.
@@ -271,6 +293,8 @@ setTimeout
 
 정리하자면 자바스크립트는 비동기 작업을 수행할 때 Web API를 통해 여러 queue에 등록된 작업들을 우선순위에 따라 꺼내서 처리합니다.
 
+
+
 ##### 이벤트 루프의 우선순위
 
 1. 호출 스택의 작업을 처리한다.
@@ -278,6 +302,7 @@ setTimeout
 3. 만약 microtask가 비어있다면 Animation Frames를 확인하고 브라우저 렌더링이 발생한다.
 4. 1, 2, 3번 작업이 완료되었다면 task queue를 확인하고 작업이 있다면 task queue의 작업을 호출 스택으로 넣고 처리한다.
 
+> Animation Frame은 Vsync에 맞춰서 호출되므로 task보다 후에 호출될 수도 있습니다.
 > Input과 같은 Event 처리는 Microtask, task, Animation Frame보다 높은 우선순위를 가집니다. 다음 글에서 설명하도록 하겠습니다.
 
 ![Alt Event Loop](/assets/img/howtoworksjs/eventloop3.png)
@@ -288,6 +313,8 @@ setTimeout
 > 이 글에서는 크롬이 올바른 스펙이라고 가정하고 크롬의 동작에 대해서만 다루겠습니다.
 > 자세한 비교를 보시려면 아래 링크를 참고해주세요.
 > https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/
+
+
 
 ## 참고
 
