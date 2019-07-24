@@ -305,7 +305,7 @@ setTimeout
 > Animation Frame은 Vsync에 맞춰서 호출되므로 task보다 후에 호출될 수도 있습니다.
 > Input과 같은 Event 처리는 Microtask, task, Animation Frame보다 높은 우선순위를 가집니다. 다음 글에서 설명하도록 하겠습니다.
 
-![Alt Event Loop](/assets/img/howtoworksjs/eventloop3.png)
+![default](/assets/img/howtoworksjs/eventloop3.png)
 
 > 이러한 동작들은 브라우저마다 호출 순서가 다를 수 있습니다.
 > promise가 ECMA Spec이므로 브라우저마다 처리하는 방식이 다르기 때문입니다.
