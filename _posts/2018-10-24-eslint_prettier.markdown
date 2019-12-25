@@ -7,8 +7,6 @@ categories: React
 tags: eslint prettier .eslintignore eslint-disable NODE_PATH
 ---
 
-안녕하세요. 송튜디오입니다.
-
 혹시 eslint 설정하고 config 나 serviceWorker 와 같은 linting 이 불필요한 파일에서 에러가 나서 해결방법을 찾고 계신가요?
 아니면 NODE_PATH 를 설정했는데 eslint 에서 인식을 못해서 고생하시나요?
 
