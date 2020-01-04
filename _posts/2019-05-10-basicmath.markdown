@@ -2,7 +2,7 @@
 layout: post
 title: "[알고리즘] 알고리즘에 필요한 기초 수학 정리"
 date: 2019-05-09 19:00:00
-author: 송튜디오
+author: Jewoo.Song
 categories: 알고리즘_수학
 tags: 수학 알고리즘 에라토스테네스의체 에라토스테네스 순열 소수
 ---

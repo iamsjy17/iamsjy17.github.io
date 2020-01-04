@@ -2,7 +2,7 @@
 layout: post
 title: "[Git]상황별로 가져다 쓰는 Git 명령어"
 date: 2018-08-18 15:00:00
-author: 송튜디오
+author: Jewoo.Song
 categories: Git
 tags: git git명령어
 ---

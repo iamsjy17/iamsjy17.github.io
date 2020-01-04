@@ -2,7 +2,7 @@
 layout: post
 title: '[React] React 프로젝트 시작하기 (프로젝트 생성) '
 date: 2018-08-18 19:00:00
-author: 송튜디오
+author: Jewoo.Song
 categories: React
 tags: React create-react-app
 ---

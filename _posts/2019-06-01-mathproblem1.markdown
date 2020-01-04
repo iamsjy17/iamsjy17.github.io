@@ -2,7 +2,7 @@
 layout: post
 title: "[알고리즘] 수학#1 최대공약수와 최소공배수"
 date: 2019-06-01 19:00:00
-author: 송튜디오
+author: Jewoo.Song
 categories: 알고리즘_수학
 tags: gcd lcm 최대공약수 최소공배수
 ---

@@ -2,7 +2,7 @@
 layout: post
 title: "[Javascript] 자바스크립트의 호출 스택과 이벤트 루프"
 date: 2019-07-20 15:00:00
-author: 송튜디오
+author: Jewoo.Song
 categories: Javascript
 tags: 호출스택 이벤트루프 callstack javascriptengine eventloop taskqueue microtask requestanimationframe
 ---

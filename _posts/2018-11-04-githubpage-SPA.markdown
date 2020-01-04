@@ -2,7 +2,7 @@
 layout: post
 title: "[React] GitHub Pages에 React App(SPA) 호스팅 하기"
 date: 2018-11-04 19:00:00
-author: 송튜디오
+author: Jewoo.Song
 categories: React
 tags: GitHub Page SPA React router react-router
 ---

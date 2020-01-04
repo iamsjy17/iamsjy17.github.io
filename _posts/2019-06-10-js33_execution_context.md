@@ -2,7 +2,7 @@
 layout: post
 title: "[Javascript] Execution Context와 Lexical Environment"
 date: 2019-06-10 19:00:00
-author: 송튜디오
+author: Jewoo.Song
 categories: Javascript
 tags: 실행컨텍스트 VariableObject 변수객체 전역컨텍스트 EC GO AO 스코프체인 ScopeChain LexicalEnvironment ExecutionContext EnvironmentRecord OuterReference
 ---

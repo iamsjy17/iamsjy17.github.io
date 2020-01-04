@@ -2,7 +2,7 @@
 layout: post
 title: "[알고리즘] Recursion"
 date: 2019-05-13 19:00:00
-author: 송튜디오
+author: Jewoo.Song
 categories: 알고리즘_기초
 tags: 재귀함수 재귀 Recursion Recursive
 ---

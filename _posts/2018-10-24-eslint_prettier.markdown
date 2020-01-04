@@ -2,7 +2,7 @@
 layout: post
 title: "[React] Eslint 설정하기 (vscode Prettier 연동)"
 date: 2018-10-24 19:00:00
-author: 송튜디오
+author: Jewoo.Song
 categories: React
 tags: eslint prettier .eslintignore eslint-disable NODE_PATH
 ---

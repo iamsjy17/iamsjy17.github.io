@@ -455,3 +455,19 @@ pre code.hljs {
     }
   }
 }
+
+img[alt="default"] {
+  width: 600px;
+}
+
+img[alt="small"] {
+  width: 300px;
+}
+
+img[alt="medium"] {
+  width: 500px;
+}
+
+img[alt="big"] {
+  width: 800px;
+}

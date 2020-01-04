@@ -2,7 +2,7 @@
 layout: post
 title: "[Javascript] 비동기 스케줄링과 Frame의 LifeCycle"
 date: 2019-07-20 15:00:00
-author: 송튜디오
+author: Jewoo.Song
 categories: Javascript
 tags: 호출스택 이벤트루프 callstack javascriptengine eventloop taskqueue microtask requestanimationframe beginframe 비동기 비동기스케줄링
 ---

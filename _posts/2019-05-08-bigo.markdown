@@ -2,7 +2,7 @@
 layout: post
 title: "[알고리즘] Big-O 표기법"
 date: 2019-05-08 19:00:00
-author: 송튜디오
+author: Jewoo.Song
 categories: 알고리즘_기초
 tags: BigO 시간복잡도 공간복잡도
 ---

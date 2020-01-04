@@ -2,7 +2,7 @@
 layout: post
 title: "[자료구조] 우선순위 큐"
 date: 2019-05-13 19:00:00
-author: 송튜디오
+author: Jewoo.Song
 categories: 자료구조
 tags: 힙 이진힙 우선순위큐 큐 priorityqueue
 ---

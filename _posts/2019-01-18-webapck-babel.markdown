@@ -2,7 +2,7 @@
 layout: post
 title: "[Webpack] Babel7 과 Webpack4 설정을 통해 ES6 모듈 사용하기"
 date: 2019-01-19 19:00:00
-author: 송튜디오
+author: Jewoo.Song
 categories: webpack
 tags: Webpack Webpack4 babel babel7 ES6 Javascript
 ---

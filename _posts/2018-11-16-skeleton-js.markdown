@@ -2,7 +2,7 @@
 layout: post
 title: "[Javascript] gulp, babel, eslint 적용하기 (skeleton project 만들기)"
 date: 2018-11-16 19:00:00
-author: 송튜디오
+author: Jewoo.Song
 categories: Javascript
 tags: gulp babel eslint gulp-babel gulp-eslint git javascript
 ---
