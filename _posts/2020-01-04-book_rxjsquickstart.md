@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "[Books] RxJS Quick Start"
-date: 2019-01-04 21:00:00
+date: 2020-01-04 21:00:00
 author: Jewoo.Song
 categories: Books
 tags:
