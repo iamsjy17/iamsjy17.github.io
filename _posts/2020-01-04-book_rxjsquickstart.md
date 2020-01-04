@@ -1,10 +1,10 @@
 ---
 layout: post
-title: "[서평] RxJS Quick Start"
-date: 2020-01-04 21:00:00
+title: "[Books] RxJS Quick Start"
+date: 2019-01-04 21:00:00
 author: Jewoo.Song
-categories: 서평
-tags: RxJS\ Quick\ Start RxJS\ 서평
+categories: Books
+tags: [RxJS Quick Start, RxJS 서평]
 ---
 
 ![Alt rxjsquickstart](/assets/img/books/rxjsquickstart.jpg)
