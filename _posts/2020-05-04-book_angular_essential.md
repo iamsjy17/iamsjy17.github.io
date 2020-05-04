@@ -11,7 +11,9 @@ tags:
 
 ![Alt angular essential](/assets/img/books/angularessential.png)
 
-이 책을 선택한 것은 우선 Angular 관련 서적이 많이 없다.
+작년 말에 한번 대충 보고 묵혀두다가 재택근무하면서 다시 한번 제대로 봤다.
+
+처음에 이 책을 선택한 것은 우선 Angular 관련 서적이 많이 없다.
 
 19년 4월에 나온 책이 있긴 한데, Angular에만 집중된 책은 아니다. 그나마 최신 책이라서 선택했고 이웅모님은 이 책을 보기 전에도 알고 있었다.
 
