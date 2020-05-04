@@ -4,7 +4,19 @@ title: "[Javascript] 비동기 스케줄링과 Frame의 LifeCycle"
 date: 2019-07-20 15:00:00
 author: Jewoo.Song
 categories: Javascript
-tags: 호출스택 이벤트루프 callstack javascriptengine eventloop taskqueue microtask requestanimationframe beginframe 비동기 비동기스케줄링
+tags:
+  - javascript 호출스택
+  - 이벤트루프
+  - callstack
+  - javascript engine
+  - eventloop
+  - taskqueue
+  - microtask
+  - requestanimationframe
+  - beginframe
+  - javascript
+  - 비동기
+  - 비동기스케줄링
 ---
 
 ## 비동기 스케줄링
@@ -20,32 +32,31 @@ tags: 호출스택 이벤트루프 callstack javascriptengine eventloop taskqueu
 각 비동기 task 들과 Input Event의 우선순위를 알아보기 위한 예제입니다.
 
 ```js
-function onKeyDown(){
-    console.log(`onKeyDown`);
-     
-    requestAnimationFrame(function() {
-        console.log(`animation`);
-    });
+function onKeyDown() {
+  console.log(`onKeyDown`);
 
-    Promise.resolve()
-      .then(function() {
-        console.log(`promise`);
-      });
+  requestAnimationFrame(function () {
+    console.log(`animation`);
+  });
 
-    setTimeout(function() {
-        console.log(`setTimeout`);
-    }, 0);
+  Promise.resolve().then(function () {
+    console.log(`promise`);
+  });
+
+  setTimeout(function () {
+    console.log(`setTimeout`);
+  }, 0);
 }
-window.addEventListener('keydown', onKeyDown);
+window.addEventListener("keydown", onKeyDown);
 ```
 
 결과는 아래와 같습니다.
 
 ```js
-onKeyDown
-promise
-animation
-setTimeout
+onKeyDown;
+promise;
+animation;
+setTimeout;
 ```
 
 onKeydown(onKeydown가 호출 스택에 올라갔을 때)에서 비동기 호출을 하므로, 위 예제는 적절하지 않습니다.
@@ -69,37 +80,36 @@ var keydownCount = 0;
 var rafCount = 0;
 var promiseCount = 0;
 var settimeoutCount = 0;
-function onKeyDown(){
-    var start = performance.now();    
-    console.log(`onKeyDown ${++keydownCount}`);
-     
-    requestAnimationFrame(function() {
-        console.log(`animation ${++rafCount}`);
-    });
+function onKeyDown() {
+  var start = performance.now();
+  console.log(`onKeyDown ${++keydownCount}`);
 
-    Promise.resolve()
-      .then(function() {
-        console.log(`promise ${++promiseCount}`);
-      });
+  requestAnimationFrame(function () {
+    console.log(`animation ${++rafCount}`);
+  });
 
-    setTimeout(function() {
-        console.log(`setTimeout ${++settimeoutCount}`);
-    }, 0);
+  Promise.resolve().then(function () {
+    console.log(`promise ${++promiseCount}`);
+  });
 
-    for(var i =0; i < 400000; i++){
-        JSON.stringify(([].slice().concat([1])).splice(0,1));
-    }  
-    var end = performance.now();
-    console.log(end-start);
+  setTimeout(function () {
+    console.log(`setTimeout ${++settimeoutCount}`);
+  }, 0);
+
+  for (var i = 0; i < 400000; i++) {
+    JSON.stringify([].slice().concat([1]).splice(0, 1));
+  }
+  var end = performance.now();
+  console.log(end - start);
 }
-window.addEventListener('keydown', onKeyDown); 
+window.addEventListener("keydown", onKeyDown);
 //189.81499999972584
 ```
 
 #### 1-2. 2번의 키 입력이 들어온 상황
 
 위와 같은 예제가 있을 때 먼저 예상을 해보도록 하겠습니다.
-첫 번째 키 입력이 들어오고 onKeydown이 호출되고, 아직 호출 스택에서 수행하는 도중에 keydown Event가 다시 들어온 상황입니다. 
+첫 번째 키 입력이 들어오고 onKeydown이 호출되고, 아직 호출 스택에서 수행하는 도중에 keydown Event가 다시 들어온 상황입니다.
 
 아래와 같은 순서로 비동기 Task들이 등록된 상태에서 Call Stack이 Idle 상태가 되었을 때 어떤 Task가 먼저 들어올까요?
 
@@ -114,13 +124,11 @@ window.addEventListener('keydown', onKeyDown);
 
 <br/>
 
-
 #### 1) onKeyDown 실행
 
 ![medium](/assets/img/howtoworksjs/asyncPriority1.png)
 
 <br/>
-
 
 #### 2) requestAnimationFrame 등록
 
@@ -128,13 +136,11 @@ window.addEventListener('keydown', onKeyDown);
 
 <br/>
 
-
 #### 3) Promise 등록
 
 ![medium](/assets/img/howtoworksjs/asyncPriority3.png)
 
 <br/>
-
 
 #### 4) setTimeout 등록
 
@@ -150,7 +156,6 @@ window.addEventListener('keydown', onKeyDown);
 ![medium](/assets/img/howtoworksjs/asyncPriority5.png)
 
 <br/>
-
 
 #### 6) 비동기 Task 실행
 
@@ -176,7 +181,6 @@ setTimeout 2
 <br/>
 <br/>
 
-
 #### 1-3. 반복 테스트
 
 이번에는 키를 10초가량 입력을 했을 때 어떻게 될지 테스트를 해보았습니다.
@@ -191,33 +195,32 @@ Event Handler에서 무거운 작업을 수행한다면 Rendering이 수행되�
 
 ![default](/assets/img/howtoworksjs/asynctest.gif)
 
-
-재귀 호출로 Stack Overflow가 발생하는 것도 아니고, 동일한 시점에 각 비동기 Task를 하나씩 쌓고 있는데 왜 이런 현상이 발생할까요? 
+재귀 호출로 Stack Overflow가 발생하는 것도 아니고, 동일한 시점에 각 비동기 Task를 하나씩 쌓고 있는데 왜 이런 현상이 발생할까요?
 앞에서 말했던 대로 비동기 Task들의 우선순위 차이 때문에 이런 stavation 상태가 됩니다.
 
 #### 테스트에서 중요한 두 가지
 
-1. Vsync 내에 실행이 완료되지 못하더라도 Input Event는 막히지 않습니다.  
-  - queue에 쌓인 Event들은 결국 다 실행이 됩니다.
-2. 각 비동기 Task의 우선순위가 다릅니다.
-  - 비동기 스케줄링을 잘 못한다면 심각하게 frame이 drop 될 수 있습니다.
+1. Vsync 내에 실행이 완료되지 못하더라도 Input Event는 막히지 않습니다.
 
+- queue에 쌓인 Event들은 결국 다 실행이 됩니다.
+
+2. 각 비동기 Task의 우선순위가 다릅니다.
+
+- 비동기 스케줄링을 잘 못한다면 심각하게 frame이 drop 될 수 있습니다.
 
 ### 2. Life of a frame
 
 Input Event가 rAF 보다 높은 우선순위를 가지는 것은 브라우저 프레임에서 이벤트의 라이프 사이클을 보면 알 수 있습니다.
 
-브라우저는 Input Event가 있다면 Input Event를 먼저 처리하고 requestAnimationFrame을 호출합니다. 
-
+브라우저는 Input Event가 있다면 Input Event를 먼저 처리하고 requestAnimationFrame을 호출합니다.
 
 - Life of a frame
 
 ![default](/assets/img/howtoworksjs/AframeinChromium.png)
 
 - Event Dispatch Diagram
-<br/>
-![default](/assets/img/howtoworksjs/Eventdispatchdiagram.png)
-
+  <br/>
+  ![default](/assets/img/howtoworksjs/Eventdispatchdiagram.png)
 
 먼저 Input을 처리하고 렌더링을 한다는 것이니까 합리적이라고 볼 수 있습니다.
 그러나 위에서 실험해본 상황과 같이 극단적인 상황에서는 브라우저가 계속해서 Input Event만 처리하는 상황이 오게 됩니다.
@@ -229,13 +232,12 @@ Input Event Handler에서 오랜 시간 걸리는 작업을 하지 않는 것이
 
 그런데 만약 해야 한다면 Event Handler에서 바로 모든 작업을 해주는 것이 아니라 작업을 쪼개서 동기, 비동기로 적절하게 우선순위를 조정하여 호출해주어야 합니다.
 
-브라우저가 렌더링 할 수 있는 시간을 줍시다! 
+브라우저가 렌더링 할 수 있는 시간을 줍시다!
 
-다음 포스팅에서는 이런 상황에서 어떻게 비동기로 작업을 호출하는 것이 효율적일지에 대해서 포스팅해보도록 하겠습니다. 
+다음 포스팅에서는 이런 상황에서 어떻게 비동기로 작업을 호출하는 것이 효율적일지에 대해서 포스팅해보도록 하겠습니다.
 
 ## 참고
 
 - https://medium.com/@paul_irish/requestanimationframe-scheduling-for-nerds-9c57f7438ef4
 - https://docs.google.com/drawings/d/1bUukRm-DV34sM7rL2_bSdxaQkZVMQ_5vOa7nzDnmnx8/edit
 - https://docs.google.com/presentation/d/1e-aNC_urs4BiAilWPK3MYcf6UZu8rhluGUttNOy6iVY/edit#slide=id.g1459cdb6e2_0_17
-

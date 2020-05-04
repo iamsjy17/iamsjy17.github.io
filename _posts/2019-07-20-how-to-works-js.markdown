@@ -4,7 +4,19 @@ title: "[Javascript] 자바스크립트의 호출 스택과 이벤트 루프"
 date: 2019-07-20 15:00:00
 author: Jewoo.Song
 categories: Javascript
-tags: 호출스택 이벤트루프 callstack javascriptengine eventloop taskqueue microtask requestanimationframe
+tags:
+  - javascript 호출스택
+  - 이벤트루프
+  - callstack
+  - javascript engine
+  - v8
+  - node.js
+  - eventloop
+  - taskqueue
+  - microtask
+  - requestanimationframe
+  - beginframe
+  - javascript
 ---
 
 ## 자바스크립트의 호출 스택과 이벤트 루프
@@ -60,8 +72,6 @@ tags: 호출스택 이벤트루프 callstack javascriptengine eventloop taskqueu
 
 > 호출 스택: 현재 프로그램 상에서 어디에 있는지를 기록하는 자료 구조
 
-
-
 #### 단일 호출 스택(single-thread)의 단점
 
 브라우저에서 호출 스택에 실행할 함수가 쌓여있는 동안은 다른 일을 할 수 없습니다. 이 상태를 `blocked`라 합니다. 이 상태에서 브라우저는 렌더링을 할 수도 없고, 다른 코드를 실행할 수도 없습니다.
@@ -83,13 +93,9 @@ stack();
 
 ![Alt StackOverFlow](/assets/img/howtoworksjs/stackoverflow1.png)
 
-
-
 - Error
 
 ![Alt StackOverFlow](/assets/img/howtoworksjs/stackoverflow2.png)
-
-
 
 - 브라우저 동작 멈춤
 
@@ -103,12 +109,9 @@ stack();
 
 > 12540개는 정확한 숫자가 아니라 제 환경에서 테스트 1회 했을 때의 결과입니다. 대충 큰 숫자라고 여기시면 될 것 같습니다.
 
-
 이러한 문제를 해결하기 위해 이벤트 루프를 통한 동시성 확보를 해야 합니다.
 
 > 적절하게 task를 쪼개서 비동기 호출을 하고, 또 중간중간 렌더링등 UI 갱신이 이루어질 수 있도록 호출 스택이 빈 상태가 되도록 해주어야 한다.
-
-
 
 #### 이벤트 루프
 
@@ -118,7 +121,7 @@ stack();
 
 이러한 반복을 이벤트 루프에서는 `tick`이라고 합니다.
 
--  task queue
+- task queue
 
 MDN에서 Event Loop을 보면 다음과 같이 간이 코드가 나옵니다.
 task queue는 message를 기다리고 message가 들어오면 task queue에 추가합니다.
@@ -129,7 +132,7 @@ while (queue.waitForMessage()) {
 }
 ```
 
--  event loop
+- event loop
 
 그리고 이벤트 루프는 가장 오래된 메시지부터 시작해서 메시지를 처리합니다.
 메시지를 처리한다는 것은 함수를 실행해서 호출 스택에 올린다는 뜻입니다.
@@ -148,18 +151,13 @@ while (eventLoop.waitForTask()) {
 
 실제 실행 자체는 호출 스택에 올라가서 수행이 되므로 Run-to-completion 으로 동작합니다.
 
-
 > Run-to-completion : Each message is processed completely before any other message is processed.
-
-
 
 ### 5. Task Queue vs Microtask Queue Animation vs Animation Frames
 
 앞에 까지는 모든 비동기 동작이 Task Queue에 쌓이는 것처럼 설명을 했는데, 실제로는 여러 Queue가 존재합니다.
 
 ES6에 들어오면서 새로운 컨셉인 `Microtask Queue`가 도입되었습니다. Microtask Queue는 Task Queue와 동일한 계층에 존재하고 프로미스의 비동기 호출 시 Microtask Queue에 쌓이게 됩니다.
-
-
 
 #### 1) Microtask Queue vs Task Queue
 
@@ -168,15 +166,15 @@ ES6에 들어오면서 새로운 컨셉인 `Microtask Queue`가 도입되었습�
 ```js
 console.log("script start");
 
-setTimeout(function() {
+setTimeout(function () {
   console.log("setTimeout");
 }, 0);
 
 Promise.resolve()
-  .then(function() {
+  .then(function () {
     console.log("promise1");
   })
-  .then(function() {
+  .then(function () {
     console.log("promise2");
   });
 
@@ -219,18 +217,18 @@ setTimeout
 console.log("script start");
 
 //2. script 실행 (setTimeout callback task queue에 등록)
-setTimeout(function() {
+setTimeout(function () {
   //9. Task 실행
   console.log("setTimeout");
 }, 0);
 
 //3. script 실행 (Promise then callback Microtask queue에 등록)
 Promise.resolve()
-  .then(function() {
+  .then(function () {
     // 6. MicroTask 실행
     console.log("promise1");
   }) // 7. script 실행 (Promise then callback Microtask queue에 등록)
-  .then(function() {
+  .then(function () {
     // 8. MicroTask 실행
     console.log("promise2");
   });
@@ -239,8 +237,6 @@ Promise.resolve()
 console.log("script end");
 //5. Stack의 모든 Task 실행완료
 ```
-
-
 
 #### 2) Microtask Queue vs Task Queue vs Animation Frames
 
@@ -253,24 +249,24 @@ Microtask 외에도 Queue는 또 있습니다. 바로 requestAnimationFrame에 �
 console.log("script start");
 
 //2. script 실행 (setTimeout callback task queue에 등록)
-setTimeout(function() {
+setTimeout(function () {
   //11. Task 실행
   console.log("setTimeout");
 }, 0);
 
 //3. script 실행 (Promise then callback Microtask queue에 등록)
 Promise.resolve()
-  .then(function() {
+  .then(function () {
     // 7. MicroTask 실행
     console.log("promise1");
   }) // 8. script 실행 (Promise then callback Microtask queue에 등록)
-  .then(function() {
+  .then(function () {
     // 9. MicroTask 실행
     console.log("promise2");
   });
 
 //4. script 실행 (AnimationFrame Animation frames에 등록)
-requestAnimationFrame(function() {
+requestAnimationFrame(function () {
   //10. Animation Frame 실행
   console.log("animation");
 });
@@ -293,8 +289,6 @@ setTimeout
 
 정리하자면 자바스크립트는 비동기 작업을 수행할 때 Web API를 통해 여러 queue에 등록된 작업들을 우선순위에 따라 꺼내서 처리합니다.
 
-
-
 ##### 이벤트 루프의 우선순위
 
 1. 호출 스택의 작업을 처리한다.
@@ -313,8 +307,6 @@ setTimeout
 > 이 글에서는 크롬이 올바른 스펙이라고 가정하고 크롬의 동작에 대해서만 다루겠습니다.
 > 자세한 비교를 보시려면 아래 링크를 참고해주세요.
 > https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/
-
-
 
 ## 참고
 
