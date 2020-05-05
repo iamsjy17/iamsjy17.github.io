@@ -19,9 +19,7 @@ tags:
 
 Angular의 Change Detection은 Angular 프레임워크의 핵심 매커니즘이다.
 
-프레임워크는 애플리케이션의 상태(상태와 템플릿)를 DOM에 반영해야 한다. 상태의 어떠한 변화가 발생할 때 View를 업데이트하는 것은 필수이다.
-
-이렇게 상태 변경을 감지해서 View(Dom)과 Model을 동기화하는 이러한 메커니즘을 Change Detection이라 한다.
+프레임워크는 애플리케이션의 상태(상태와 템플릿)를 DOM에 반영해야 한다. 상태의 어떠한 변화가 발생할 때 View를 업데이트하는 것은 필수이다. 이렇게 상태 변경을 감지해서 View(Dom)과 Model을 동기화하는 이러한 메커니즘을 Change Detection이라 한다.
 
 즉, Change Detection 이란? Model(data)에 변경되었을 때 View(DOM)를 업데이트하는 일련의 프로세스이다.
 
@@ -32,6 +30,8 @@ Angular뿐 아니라 각 프론트엔드 프레임워크는 이러한 메커니�
 
 > Angular에서 Change Detection 이란? 작게 보면 단순히 변경이 있는지 검사하고 만약 변경된 상태가 있다면 변경된 상태를 View에 반영하는 메커니즘이다.
 > 그런데 좀 더 넓게 본다면 `자동으로 변화가 발생할 수 있는 상황을 감지하여(zone.js)` 변경 여부를 체크하고 변경된 상태가 있다면 변경된 상태를 View에 반영하는 이 일련의 프로세스 전체를 Change Detection으로 볼 수 있을 것 같다.
+
+<br/>
 
 ### 1-1. Change Detection 동작 원리
 
@@ -52,13 +52,13 @@ Change Detector는 현재 value의 property와 이전 value의 property를 비�
 
 ## 2. Zone.js
 
-### 2-1. Zone?
-
 Zone 이란 비동기 작업에서 지속되는 실행 컨텍스트이다. 즉, 논리적으로 연결된 여러 비동기 작업을 쉽게 할 수 있도록 도와주는 새로운 메커니즘이다.
 
 Angular에서 Zone 이란 Change Detection 동작 원리 중 2번 `Angular가 변화가 발생할 수 있는 상황을 감지하여 Change Detection을 발생시킨다.`에 해당하는 부분으로 Angular에게 언제 Change Detection 수행하도록 해야하는지 우리가 신경쓰지 않아도 되도록 자동으로 Change Detection을 발생시켜주는 역할을 한다.
 
 > Angular에서 Zone은 Change Detection의 트리거 역할을 한다.
+
+<br/>
 
 #### 일반적인 Zone의 실행 과정
 
@@ -82,11 +82,12 @@ Angular에서의 Zone 역할을 수행하기 위해 Angular는 애플리케이�
 
 다음 이벤트 중 하나가 발생하면 zone 안에서 콜백이 실행되고 이를 통해서, Angular는 변화가 감지되었다고 간주하고 Change detection을 실행한다.
 
-- 애플리케이션의 상태를 변경시키는 이벤트들
-  - EventEmitter
-  - any Browser event(click, keyup, etc.)
-  - setInterval() and setTimeout()
-  - HTTP requests (XMLHttpRequest)
+#### 애플리케이션의 상태를 변경시키는 이벤트들
+
+- EventEmitter
+- any Browser event(click, keyup, etc.)
+- setInterval() and setTimeout()
+- HTTP requests (XMLHttpRequest)
 
 > 전체 몽키 패치 목록
 >
@@ -96,6 +97,8 @@ Angular에서의 Zone 역할을 수행하기 위해 Angular는 애플리케이�
 > 소스 코드
 >
 > - https://github.com/angular/zone.js/blob/1ba851989ccb6907df49bba37ee24ab60adf13a9/lib/browser/browser.ts#L28
+
+<br/>
 
 ### 2-3. Zone 주요 API
 
@@ -447,6 +450,8 @@ return (this as any as NgZonePrivate).\_outer.run(fn) as T;
 
 > https://github.com/angular/angular/blob/698b0288bee60b8c5926148b79b5b93f454098db/packages/core/src/zone/ng_zone.ts
 
+<br/>
+
 #### ngZone의 속성(Event)
 
 |              Property               |                                                                                            Description                                                                                            |
@@ -476,6 +481,8 @@ export class ApplicationRef {
 >
 > https://github.com/angular/angular/blob/30d5a2ca83c9cf44f602462597a58547b05b75dd/packages/core/src/application_ref.ts#L364
 
+<br/>
+
 #### onMicrotaskEmpty 이벤트 발생 과정
 
 onMicrotaskEmpty 이벤트는 NgZone의 checkStable 메서드를 통해 발생한다.
@@ -502,6 +509,8 @@ function checkStable(zone: NgZonePrivate) {
 Zone과 Angular의 Change detection은 강한 연관성이 있지만, 기술적으로 부분집합적인 관계는 아니다.
 
 > Zone은 비동기 작업을 수행할 때 Change Detection을 자동으로 발생시킨다.
+
+<br/>
 
 Change detection은 Zone 과는 별도의 메커니즘이기 때문에 Zone과 NgZone 없이도 Change Detection을 구현할 수 있다.
 
@@ -560,7 +569,7 @@ OnPush 전략을 사용하면 Angular는 오직 다음과 같은 상황에만 Ch
 - 명시적으로 Change Detection이 실행될 때
 - 템플릿에서 Async pipe를 통해 연결된 Observable이 새로운 value를 emit 할 때
 
-#### Input 참조 변경
+### Input 참조 변경
 
 ChangeDetectionStrategy.Default를 사용할 때, Angular는 `@Input` data가 바뀌거나, 수정될 때마다 Change Detector를 실행한다.
 그러나 OnPush 전략을 사용할 때 오직 새로운 참조가 @Input의 값으로 전달될 때에만 Change Detection이 트리거 됩니다.
@@ -570,7 +579,7 @@ ChangeDetectionStrategy.Default를 사용할 때, Angular는 `@Input` data가 �
 @Input으로 참조 타입인 Object나 Array을 받는 경우 property 수정이나 배열의 요소를 수정하는 것은 참조가 변경되지 않으므로 Change Detection을 발생시키지 않고,
 오직 새로운 object, array의 참조를 전달할 때 Change Detection이 발생한다.
 
-#### 이벤트 핸들러 트리거
+### 이벤트 핸들러 트리거
 
 OnPush 컴포넌트 또는 자식 컴포넌트의 이벤트 핸들러가 트리거 될 때 Change Detection이 발생한다.
 이벤트 핸들러가 아닌 다음과 같은 비동기 작업은 OnPush 컴포넌트에서 Change Detection이 발생하지 않는다.
@@ -580,7 +589,7 @@ OnPush 컴포넌트 또는 자식 컴포넌트의 이벤트 핸들러가 트리�
 - Promise
 - this.http.get('...').subscribe()
 
-#### 명시적 Change Detection 실행
+### 명시적 Change Detection 실행
 
 Chnage Detection을 명시적으로 실행시키는 방법
 
@@ -594,7 +603,7 @@ abstract class ChangeDetectorRef {
 }
 ```
 
-##### detectChange()
+#### detectChange()
 
 ChangeDetectorRef의 detectChange 메서드는 현재 컴포넌트와 자식 컴포넌트에 대해서 Change Detection Strategy를 적용하여 Change Detection을 발생시킨다.
 detach 메서드와 함께 사용하여 로컬 Change Detection을 구현할 수 있다.
@@ -616,11 +625,11 @@ class GiantList {
 위 예제는 큰 데이터를 자주 읽어야 하는 컴포넌트 예시이다.
 성능 향상을 위해 컴포넌트의 ChangeDetector를 detach 하고 5초마다 명시적으로 로컬 Change Detection을 발생시킨다.
 
-##### ApplicationRef.tick()
+#### ApplicationRef.tick()
 
 ApplicationRef.tick() 메서드는 전체 애플리케이션에 대해서 Change Detection Strategy를 적용하여 Change Detection을 발생시킨다.
 
-##### markForCheck()
+#### markForCheck()
 
 만약 @Input이 변경되거나 Event가 발생하는 경우 View는 dirty flag가 켜진다.
 만약 트리거가 발생하지 않더라도 dirty flag를 키고 싶은 경우 사용한다.
@@ -634,7 +643,7 @@ dirty flag를 키므로 모든 OnPush 부모(부모의 부모...) 컴포넌트�
 
 ![img](/assets/img/angular/changedetection5.png)
 
-#### Async Pipe
+### Async Pipe
 
 AsyncPipe는 OnPush 전략을 사용합니다.
 AsyncPipe를 subscribe 하면 가장 최근에 emit 한 값을 리턴한다.
