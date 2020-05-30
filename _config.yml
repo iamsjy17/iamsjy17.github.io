@@ -9,14 +9,13 @@ exclude:
   - "/vendor/"
 
 # Site settings
-title: "송튜디오"
-_title1: "송"
-_title2: "튜디오"
-subtitle: "WEB . JAVASCRIPT . REACT . ELECTRON"
+title: "Song Blog"
+_title1: "Songlog"
+subtitle: "WEB . JAVASCRIPT . TYPESCRIPT . ANGULAR . REACT . RXJS"
 email: iamsjy0808@gmail.com
 name: song
 description: >
-  Javascript, React.js, Node.js Electron
+  Javascript, Typescript, Angular, React, RxJS, etc.
 # Base URL of site (i.e. /blog). It should always start with a slash,
 # and never end with a slash. Set it to a blank value if hosting at the
 # root of your server.
