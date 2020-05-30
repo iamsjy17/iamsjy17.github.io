@@ -3,7 +3,8 @@ layout: post
 title: "[Design Pattern] Dependency Injection"
 date: 2020-05-30 18:00:00
 author: Jewoo.Song
-categories: Design Pattern
+categories:
+  - Design Pattern
 tags:
   - Design Pattern
   - Dependency Injection
