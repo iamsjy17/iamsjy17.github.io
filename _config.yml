@@ -9,7 +9,7 @@ exclude:
   - "/vendor/"
 
 # Site settings
-title: "Song Blog"
+title: "Songlog"
 _title1: "Songlog"
 subtitle: "WEB . JAVASCRIPT . TYPESCRIPT . ANGULAR . REACT . RXJS"
 email: iamsjy0808@gmail.com
