@@ -58,12 +58,16 @@ Dependency에 대해 좀 더 파고들어보면 A 클래스 안에 B 클래스�
 >
 > https://en.wikipedia.org/wiki/Class_diagram#Dependency
 
+<br>
+
 #### Dependency 관점에서의 DI
 
 Dependency Injection은 이러한 Dependency를 제거하는 패턴이다.
 실제로 Dependency가 제거되는 것은 아니고 Dependency를 외부로 제거하는 것이라고 할 수 있다.
 
 > 클래스 간의 의존관계가 있을 때 컴파일 타임의 의존관계를 제거하고 런타임 의존관계로 만들어 주고 결합도(coupling)을 낮춰주는 것이 Dependency Injection이다.
+
+<br>
 
 ### 2. Dependency Injection 구현
 
