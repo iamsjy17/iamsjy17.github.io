@@ -26,7 +26,7 @@ create 함수는 Observer가 subscribe 할 때 실행할 `onSubscription` functi
 
 create는 내부적으로 Observable 생성자를 호출하여 새로운 콜드 옵저버블을 생성한다.
 
-```tsx
+```ts
 //https://github.com/ReactiveX/rxjs/blob/master/src/internal/Observable.ts
 static create: Function = <T>(subscribe?: (subscriber: Subscriber<T>) => TeardownLogic) => {
     return new Observable<T>(subscribe);
@@ -35,20 +35,18 @@ static create: Function = <T>(subscribe?: (subscriber: Subscriber<T>) => Teardow
 
 이렇게 생성된 옵저버블을 subscribe할 때마다 인자로 받은 Observer가 onSubscription 함수로 전달되고 onSubscription 함수에서 Observer의 `next` , `error` , `complete` 메서드를 호출한다.
 
-## 예제
+### 예제 1. observer.complete()
 
-### 1. observer.complete()
-
-```tsx
+```ts
 //http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html#static-method-create
 
-var observable = Rx.Observable.create(function (observer) {
+const observable = Rx.Observable.create(function (observer) {
   observer.next(1);
   observer.next(2);
   observer.next(3);
   observer.complete();
 
-  // complete 이후는 실행되지 않는다.
+  //complete 이후는 실행되지 않는다.
   observer.next(4);
   observer.error(new Error("error!!"));
   observer.complete();
@@ -75,52 +73,52 @@ observable.subscribe(
 
 complete이 호출되면 내부적으로 unsubscribe가 호출된다. 즉, 구독이 해제되기 때문에 이후 호출되는 observer 메서드는 수행되지 않는다.
 
-</br>
+<br>
 
-```tsx
+```ts
 //Subscriber의 complete 함수(Observe interface의 구현 class)
 //https://github.com/ReactiveX/rxjs/blob/master/src/internal/Subscriber.ts
 
 protected _complete(): void {
-    this.destination.complete();
-		// subscribe의 인자로 받은 Observer의 complete 호출
+  this.destination.complete();
+  // subscribe의 인자로 받은 Observer의 complete 호출
 
-		this.unsubscribe();
+  this.unsubscribe();
 }
 
 unsubscribe(): void {
-    if (!this.closed) {
-      this.isStopped = true;
-      super.unsubscribe();
-    }
+  if (!this.closed) {
+    this.isStopped = true;
+    super.unsubscribe();
+  }
 }
 ```
 
-</br>
+<br>
 
 unsubscribe가 호출되면 `Subscriber` 내부적으로 isStopped flag가 켜지고 이후에 동작하는 메서드는 아래와 같이 튕기게 된다.
 
-```tsx
+```ts
 //https://github.com/ReactiveX/rxjs/blob/master/src/internal/Subscriber.ts
 
 next(value?: T): void {
-    if (!this.isStopped) {
-      this._next(value!);
-    }
- }
+  if (!this.isStopped) {
+    this._next(value!);
+  }
+}
 
 error(err?: any): void {
-    if (!this.isStopped) {
-      this.isStopped = true;
-      this._error(err);
-    }
+  if (!this.isStopped) {
+    this.isStopped = true;
+    this._error(err);
+  }
 }
 
 complete(): void {
-    if (!this.isStopped) {
-      this.isStopped = true;
-      this._complete();
-    }
+  if (!this.isStopped) {
+    this.isStopped = true;
+    this._complete();
+  }
 }
 ```
 
@@ -128,11 +126,11 @@ complete(): void {
 
 따라서 onSubscription 함수를 구현할 때 구독이 완료된 이후 불필요한 동작이 일어나지 않도록 구현해야 한다.
 
-</br>
+<br>
 
-### 2. observer.error()
+### 예제 2. observer.error()
 
-```tsx
+```ts
 //http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html#static-method-create
 
 const observable = Rx.Observable.create((observer) => {
@@ -154,26 +152,26 @@ observable.subscribe(
 // "unsubscribe"
 ```
 
-</br>
+<br>
 
 위 예제에서 볼 수 있듯이 observer.error를 실행하면 구독을 해제하는 `TeardownLogic` (unsubscribe) 함수가 실행된다.
 
-```tsx
+```ts
 //https://github.com/ReactiveX/rxjs/blob/master/src/internal/Subscriber.ts
 
 protected _error(err: any): void {
-    this.destination.error(err);
-    this.unsubscribe();
+  this.destination.error(err);
+  this.unsubscribe();
 }
 ```
 
 그러면 만약 명시적으로 observer.error()를 호출해 준 것이 아니라 onSubscription 함수 내에서 error가 발생한 상황에서는 어떻게 될까?
 
-</br>
+<br>
 
-### 3. 실행 중에 에러가 발생하는 경우
+### 예제 3. 실행 중에 에러가 발생하는 경우
 
-```tsx
+```ts
 const observable = Rx.Observable.create((observer) => {
   observer.next(1);
   observer.next(2);
@@ -205,7 +203,7 @@ observable.subscribe(
 // "ReferenceError: consolee is not defined"
 ```
 
-</br>
+<br>
 
 onSubscription 함수 내에서 오타를 내서 강제로 에러를 발생시켰다. 이때도 observer의 error 함수를 호출해서 에러 메시지를 출력해준다.
 
@@ -213,9 +211,9 @@ onSubscription 함수 내에서 오타를 내서 강제로 에러를 발생시�
 
 이유는 아래 코드와 같이 subscribe 함수 내에서 observer를 추가하기 전에(`subscriber.add()`) subscribe 하는 과정(`_trySubscribe()`) 에서 에러가 발생하고 이에 따라 catch 문에서 `obserber.error()` 를 호출하고 subscriber.add는 수행되지 않기 때문이다.
 
-</br>
+<br>
 
-```tsx
+```ts
 //https://github.com/ReactiveX/rxjs/blob/master/src/internal/Observable.ts
 
 subscribe(
@@ -235,7 +233,7 @@ subscribe(
     );
 
     return subscriber;
-  }
+}
 
 //...
 
@@ -247,8 +245,8 @@ protected _trySubscribe(sink: Subscriber<T>): TeardownLogic {
       if (config.useDeprecatedSynchronousErrorHandling) {
         throw err;
       } else {
-				// observer.error 실행
-				canReportError(sink) ? sink.error(err) : reportUnhandledError(err);
+        // observer.error 실행
+        canReportError(sink) ? sink.error(err) : reportUnhandledError(err);
       }
     }
  }
@@ -258,11 +256,11 @@ protected _trySubscribe(sink: Subscriber<T>): TeardownLogic {
 
 에러 발생 시에도 온전하게 subscribe/unsubscribe가 수행되도록 하기 위해서는 onSubscribe 함수 내에서 에러 처리를 하도록 하면 된다.
 
-</br>
+<br>
 
-### 4. 실행 중에 에러가 발생하는 경우 (try-catch)
+### 예제 4. 실행 중에 에러가 발생하는 경우 (try-catch)
 
-```tsx
+```ts
 const observable = Rx.Observable.create((observer) => {
   try {
     observer.next(1);
@@ -301,7 +299,7 @@ observable.subscribe(
 
 에러 처리를 바깥에서 함으로써 내부적으로는 subscribe와 `subscriber.add()` 가 온전하게 수행되고 catch 문 내에서 `observer.error()` 를 호출해주므로 teardownLogic이 수행된다.
 
-### 참고
+## 참고
 
 - [https://www.learnrxjs.io/learn-rxjs/operators/creation/create](https://www.learnrxjs.io/learn-rxjs/operators/creation/create)
 - [http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html#static-method-create](http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html#static-method-create)
