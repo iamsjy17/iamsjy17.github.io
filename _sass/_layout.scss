@@ -28,7 +28,7 @@ ul.default {
   @extend %default-ul;
 }
 
-code {
+code.language-plaintext {
   color: #000;
   font-size: 0.85em !important;
   background-color: #f0f0f0;
