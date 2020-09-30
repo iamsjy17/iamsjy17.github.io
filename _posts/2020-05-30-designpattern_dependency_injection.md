@@ -36,7 +36,7 @@ tags:
 
 일반적으로 아래와 같은 코드에서 A 클래스에서 B 클래스를 사용할 때 A 클래스가 B 클래스에 대해서 Dependency(의존성)을 가지고 있다고 말한다. 또는 B 클래스가 A 클래스의 Dependency라고도 말할 수 있다.
 
-```ts
+```js
 class A {
   private b: B;
 
@@ -79,7 +79,7 @@ Dependency Injection 구현을 설명하기 위한 예제로는 특정 감독이
 
 핵심은 finder와 MovieLister를 어떻게 연결하느냐 하는 것인데, 이때 MovieLister의 moviesDirectedBy 메서드의 코드는 finder 객체에 대해 의존성을 가지고 있다.
 
-```ts
+```js
 class MovieLister {
   // ...
   public moviesDirectedBy(director: string) {
@@ -92,7 +92,7 @@ class MovieLister {
 
 아래와 같이 인터페이스를 정의함으로써 findAll 메서드의 사용법을 정의하고 MovieLister가 인터페이스에 의존하게 함으로써 MovieLister와 MovieFinder의 결합도를 낮출 수 있다.
 
-```ts
+```js
 interface MovieFinder {
   findAll(): Array<Movie>;
 }
@@ -116,7 +116,7 @@ class MovieLister {
 
 즉, 위 코드에서 finder 할당 부분에서는 실제 MovieFinderImpl(ColonDelimitedMovieFinder) 클래스의 인스턴스를 생성해서 할당해 주어야 하므로 구현 클래스에 의존성이 생기게 된다.
 
-```ts
+```js
  constructor() {
     // finder 할당
     this.finder = new ColonDelimitedMovieFinder("movies1.txt");
@@ -139,7 +139,7 @@ Dependency Injection을 구현하는 방식에는 세 가지 종류가 있다.
 
 > 이번 예제에서는 간단하게 구현하는 것을 보고, 이후에 Angular의 Dependency Injection에 대해서도 포스팅을 할 예정인데, 그 포스팅에서는 Angular의 DI와 Injector의 구현에 대해서도 일부 다뤄보도록 하겠습니다.
 
-```ts
+```js
 class MovieLister {
   private finder?: MovieFinder;
 
