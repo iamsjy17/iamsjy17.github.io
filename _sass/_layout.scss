@@ -28,9 +28,8 @@ ul.default {
   @extend %default-ul;
 }
 
-code {
+code.highlighter-rouge {
   color: #000;
-  font-size: 0.85em !important;
   background-color: #f0f0f0;
   border-radius: 3px;
   padding: 0.2em 0;
