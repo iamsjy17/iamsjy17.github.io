@@ -26,7 +26,7 @@ create 함수는 Observer가 subscribe 할 때 실행할 `onSubscription` functi
 
 create는 내부적으로 Observable 생성자를 호출하여 새로운 콜드 옵저버블을 생성한다.
 
-```ts
+```js
 //https://github.com/ReactiveX/rxjs/blob/master/src/internal/Observable.ts
 static create: Function = <T>(subscribe?: (subscriber: Subscriber<T>) => TeardownLogic) => {
     return new Observable<T>(subscribe);
@@ -37,7 +37,7 @@ static create: Function = <T>(subscribe?: (subscriber: Subscriber<T>) => Teardow
 
 ### 예제 1. observer.complete()
 
-```ts
+```js
 //http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html#static-method-create
 const observable = Rx.Observable.create(function (observer) {
   observer.next(1);
@@ -74,7 +74,7 @@ complete이 호출되면 내부적으로 unsubscribe가 호출된다. 즉, 구�
 
 <br>
 
-```ts
+```js
 //Subscriber의 complete 함수(Observe interface의 구현 class)
 //https://github.com/ReactiveX/rxjs/blob/master/src/internal/Subscriber.ts
 protected _complete(): void {
@@ -96,7 +96,7 @@ unsubscribe(): void {
 
 unsubscribe가 호출되면 `Subscriber` 내부적으로 isStopped flag가 켜지고 이후에 동작하는 메서드는 아래와 같이 튕기게 된다.
 
-```ts
+```js
 //https://github.com/ReactiveX/rxjs/blob/master/src/internal/Subscriber.ts
 next(value?: T): void {
   if (!this.isStopped) {
@@ -127,7 +127,7 @@ complete(): void {
 
 ### 예제 2. observer.error()
 
-```ts
+```js
 //http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html#static-method-create
 const observable = Rx.Observable.create((observer) => {
   observer.error("something went really wrong...");
@@ -152,7 +152,7 @@ observable.subscribe(
 
 위 예제에서 볼 수 있듯이 observer.error를 실행하면 구독을 해제하는 `TeardownLogic` (unsubscribe) 함수가 실행된다.
 
-```ts
+```js
 //https://github.com/ReactiveX/rxjs/blob/master/src/internal/Subscriber.ts
 protected _error(err: any): void {
   this.destination.error(err);
@@ -166,7 +166,7 @@ protected _error(err: any): void {
 
 ### 예제 3. 실행 중에 에러가 발생하는 경우
 
-```ts
+```js
 const observable = Rx.Observable.create((observer) => {
   observer.next(1);
   observer.next(2);
@@ -208,7 +208,7 @@ onSubscription 함수 내에서 오타를 내서 강제로 에러를 발생시�
 
 <br>
 
-```ts
+```js
 //https://github.com/ReactiveX/rxjs/blob/master/src/internal/Observable.ts
 subscribe(
     observerOrNext?: PartialObserver<T> | ((value: T) => void) | null,
@@ -254,7 +254,7 @@ protected _trySubscribe(sink: Subscriber<T>): TeardownLogic {
 
 ### 예제 4. 실행 중에 에러가 발생하는 경우 (try-catch)
 
-```ts
+```js
 const observable = Rx.Observable.create((observer) => {
   try {
     observer.next(1);

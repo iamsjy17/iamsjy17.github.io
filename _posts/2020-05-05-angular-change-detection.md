@@ -107,7 +107,7 @@ Angular에서의 Zone 역할을 수행하기 위해 Angular는 애플리케이�
 > - https://indepth.dev/i-reverse-engineered-zones-zone-js-and-here-is-what-ive-found/
 > - https://norux.me/65
 
-```ts
+```js
 class Zone {
   constructor(parent: Zone, zoneSpec: ZoneSpec);
   static get current();
@@ -134,7 +134,7 @@ class Zone {
 
 #### run
 
-```ts
+```js
 z.run(callback, applyThis, applyArgs, source);
 ```
 
@@ -144,7 +144,7 @@ z.run(callback, applyThis, applyArgs, source);
 
 #### runGuarded
 
-```ts
+```js
 z.runGuarded(callback, applyThis, applyArgs, source);
 ```
 
@@ -154,7 +154,7 @@ z.runGuarded(callback, applyThis, applyArgs, source);
 
 #### wrap
 
-```ts
+```js
 Zone.prototype.wrap = function (callback, source) {
   // ...
   var zone = this;
@@ -171,7 +171,7 @@ Zone.prototype.wrap = function (callback, source) {
 
 #### fork
 
-```ts
+```js
 z.fork(zoneSpec);
 ```
 
@@ -183,7 +183,7 @@ z.fork(zoneSpec);
   - 다른 모든 속성들은 부모 존이 자식 존의 특정 오퍼레이션을 인터셉트할 수 있게 해주는 후킹 속성이다.
     - zone은 부모 zone에 의해 인터셉트될 수 있다.
 
-```ts
+```js
 interface ZoneSpec {
     name: string;
     properties?: {
@@ -201,7 +201,7 @@ interface ZoneSpec {
 }
 ```
 
-```ts
+```js
 // zoneB 생성
 const zoneB = Zone.current.fork({ name: "B" });
 
@@ -216,7 +216,7 @@ z.run 메서드를 사용함으로써 각 함수는 사용할 zone을 직접 정
 
 만약 z.run을 통해 zone을 변경하지 않는다면 모든 함수는 root zone에서 실행된다.
 
-```ts
+```js
 function c() {
   console.log(Zone.current.name); // <root>
 }
@@ -235,7 +235,7 @@ a();
 
 #### 비동기 테스크에서의 Zone 유지
 
-```ts
+```js
 const zoneBC = Zone.current.fork({ name: "BC" });
 
 function c() {
@@ -270,7 +270,7 @@ zone의 장점 중 하나는 데이터 접근성인데 이는 `Context propagati
 
 새로운 zone을 fork 할 때 zoneSpec으로 데이터를 정의한다.
 
-```ts
+```js
 const zoneBC = Zone.current.fork({
   name: "BC",
   properties: {
@@ -281,7 +281,7 @@ const zoneBC = Zone.current.fork({
 
 그리고 zone.get 메서드를 사용하여 이 데이터에 접근할 수 있다.
 
-```ts
+```js
 function a() {
   console.log(Zone.current.get("data")); // 'initial'
 }
@@ -296,7 +296,7 @@ zoneBC.run(b);
 
 그리고 fork 메서드로 생성된 자식 zone은 부모 zone의 properties를 상속한다.
 
-```ts
+```js
 const parent = Zone.current.fork({
   name: "parent",
   properties: { data: "data from parent" },
@@ -315,20 +315,20 @@ child.run(() => {
 zone은 또한 비동기 macrotask나 microtask를 추적할 수 있다.
 zone은 큐안에 있는 중요 테스크들을 모두 유지한다. 큐의 상태가 바뀔 때마다 알림을 받기 위해 zoneSpec에 있는 onHasTask라는 후킹 함수를 이용할 수 있다.
 
-```ts
+```js
 onHasTask(delegate, currentZone, targetZone, hasTaskState);
 
 type HasTaskState = {
-  microTask: boolean;
-  macroTask: boolean;
-  eventTask: boolean;
-  change: "microTask" | "macroTask" | "eventTask";
+  microTask: boolean,
+  macroTask: boolean,
+  eventTask: boolean,
+  change: "microTask" | "macroTask" | "eventTask",
 };
 ```
 
 fork 메서드 호출 시 zoneSpec을 아래와 같이 지정함으로써 후킹 메서드를 실행시킬 수 있다.
 
-```ts
+```js
 const z = Zone.current.fork({
   name: "z",
   onHasTask(delegate, current, target, hasTaskState) {
@@ -349,7 +349,7 @@ z.run(b);
 
 위 코드의 실행 결과는 다음과 같다.
 
-```ts
+```js
 macroTask
 true
 {
@@ -394,7 +394,7 @@ Angular는 `NgZone`이라는 zone을 사용하고, 이 NgZone은 오직 하나�
 
 NgZone 은 단지 자식 존을 복제하는 것에 대한 래퍼(wrapper)이다.
 
-```ts
+```js
 function forkInnerZoneWithAngularBehavior(zone: NgZonePrivate) {
     zone._inner = zone._inner.fork({
         name: 'angular',
@@ -417,7 +417,7 @@ function forkInnerZoneWithAngularBehavior(zone: NgZonePrivate) {
 위 코드와 같이 fork된 zone은 `_inner` 속성에 저장되며 이 zone은 NgZone.run()을 실행할 때 사용된다.
 즉, `_inner`가 ngZone이라고 불리는 zone의 참조이다.
 
-```ts
+```js
   run<T>(fn: (...args: any[]) => T, applyThis?: any, applyArgs?: any[]): T {
     return (this as any as NgZonePrivate)._inner.run(fn, applyThis, applyArgs) as T;
   }
@@ -425,7 +425,7 @@ function forkInnerZoneWithAngularBehavior(zone: NgZonePrivate) {
 
 ngZone을 fork를 실행한 순간에 현재 Zone은 `_outer` 속성에 저장되며 이 zone은 NgZone.runOutsideAngular() 메서드를 실행할 때 사용된다.
 
-```ts
+```js
 export class NgZone {
 // ...
   constructor(...){
@@ -442,7 +442,7 @@ export class NgZone {
 runOutsideAngular 메서드는 성능에 영향을 끼칠 수 있는 작업을 실행할 때 사용된다.
 Angular zone 밖에서 실행되게 함으로써 Change Detection을 발생시키는 것을 피할 수 있다.
 
-```ts
+```js
 runOutsideAngular<T>(fn: (...args: any[]) => T): T {
 return (this as any as NgZonePrivate).\_outer.run(fn) as T;
 }
@@ -464,7 +464,7 @@ return (this as any as NgZonePrivate).\_outer.run(fn) as T;
 
 Angular는 Change Detection을 자동으로 발생시키기 위해서 ApplicationRef 내부에서 NgZone의 onMicrotaskEmpty를 subscribe 한다.
 
-```ts
+```js
 export class ApplicationRef {
 // ...
   constructor(
@@ -487,7 +487,7 @@ export class ApplicationRef {
 
 onMicrotaskEmpty 이벤트는 NgZone의 checkStable 메서드를 통해 발생한다.
 
-```ts
+```js
 function checkStable(zone: NgZonePrivate) {
   if (zone._nesting == 0 && !zone.hasPendingMicrotasks && !zone.isStable) {
     // ...
@@ -516,7 +516,7 @@ Change detection은 Zone 과는 별도의 메커니즘이기 때문에 Zone과 N
 
 #### ApplicationRef
 
-```ts
+```js
 interface ApplicationRef {
   // ...
   tick(): void;
@@ -547,7 +547,7 @@ default는 이벤트가 발생하여 Zone이 Change Detection을 트리거 할 �
 다른 옵션으로는 ChangeDetectionStrategy.OnPush이 있다.
 OnPush 컴포넌트 및 자식 컴포넌트에 대해서 불필요한 검사를 skip 할 수 있다.
 
-```ts
+```js
 @Component({
   selector: "test",
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -593,7 +593,7 @@ OnPush 컴포넌트 또는 자식 컴포넌트의 이벤트 핸들러가 트리�
 
 Chnage Detection을 명시적으로 실행시키는 방법
 
-```ts
+```js
 abstract class ChangeDetectorRef {
   abstract markForCheck(): void;
   abstract detach(): void;
@@ -608,7 +608,7 @@ abstract class ChangeDetectorRef {
 ChangeDetectorRef의 detectChange 메서드는 현재 컴포넌트와 자식 컴포넌트에 대해서 Change Detection Strategy를 적용하여 Change Detection을 발생시킨다.
 detach 메서드와 함께 사용하여 로컬 Change Detection을 구현할 수 있다.
 
-```ts
+```js
 class GiantList {
   constructor(
     private ref: ChangeDetectorRef,
@@ -650,7 +650,7 @@ AsyncPipe를 subscribe 하면 가장 최근에 emit 한 값을 리턴한다.
 
 내부적으로 AsyncPipe는 새로운 값이 emit될 때마다, `markForCheck`를 호출한다.
 
-```ts
+```js
 private _updateLatestValue(async: any, value: Object): void {
   if (async === this._obj) {
     this._latestValue = value;
