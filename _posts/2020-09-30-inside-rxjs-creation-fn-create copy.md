@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[RxJS] Observable 생성 함수 - create"
+title: "[RxJS] Observable 생성 함수1 - create (그리고, Observable과 Observer의 내부 동작)"
 date: 2020-09-30 18:00:00
 author: Jewoo.Song
 categories:
