@@ -1,24 +1,23 @@
 ---
 layout: post
-title: "[Angular] Angular 11 업데이트 및 9 ~ 11까지의 주요 변경 사항"
+title: "[Angular] Angular 11 업데이트 (9 ~ 11까지의 주요 변경사항 및 주요 기능들)"
 date: 2021-04-25 1:00:00
 author: Jewoo.Song
 categories: Angular
 tags:
-  - Angular
+  - Angular release notes
   - Angular 9
-  - Angular 9 release notes
   - Angular 10
-  - Angular 10 release notes
   - Angular 11
-  - Angular 11 release notes
   - Angular 11 Update
   - Ivy
 ---
 
 Angular 8에서 Angular 11로 업데이트를 하기 전에 미리 변경점이나 확인해야 할 점, 주요 기능들을 정리했습니다.
 
-## 1. Angular 8 → 11 업데이트시 주요 차이점
+## 1. Angular 8 → 11 업데이트시 주요 변경사항
+
+<br/>
 
 ### [Angular 9](https://v9.angular.io/guide/updating-to-version-9)
 
@@ -48,9 +47,13 @@ Angular 8에서 Angular 11로 업데이트를 하기 전에 미리 변경점이�
 - `DatePipe`는 ms를 반올림하지 않는다.
 - `@angular/core/testing`의 async → `waitForAsync`로 변경
 
+<br/>
+
 ## 2. Angular 9 ~ 11 주요 기능
 
-> Angular 9 ~ 11 release note를 보고 사용해보면 좋을 것 같은 기능들을 정리한 내용입니다.
+> Angular 9 ~ 11 release notes를 보고 사용해보면 좋을 것 같은 기능들을 정리한 내용입니다.
+
+<br/>
 
 ### [Angular 9](https://blog.angular.io/version-9-of-angular-now-available-project-ivy-has-arrived-23c97b63cfa3)
 
@@ -62,17 +65,23 @@ Ivy는 디버깅 툴을 좀 더 다양하게 제공한다. Dev 모드로 실행�
 - 인스턴스의 메소드를 직접 실행하거나 상태 변경 가능
 - Change Detection 의 결과를 확인하기 위해서 applyChanges 함수를 수동으로 실행 가능(Change Detection Trigger)
 
+![img](/assets/img/angular/angular11update5.png)
+
+<br/>
+
+Ivy 이전에는 발생하는 에러의 실행 스택이 크게 도움이 되지 않았다.
+
 ![img](/assets/img/angular/angular11update2.png)
 
-그리고 함수 실행 스택이 좀 더 유용한 단위로 표시되기 때문에 수정이 필요한 부분으로 바로 이동이 가능하다.
+Ivy에서는 함수 실행 스택이 좀 더 유용한 단위로 표시되기 때문에 수정이 필요한 부분으로 바로 이동이 가능하다.
 
 ![img](/assets/img/angular/angular11update3.png)
 
-Ivy에서는 템플릿 instruction으로 바로 이동할 수 있는 좀 더 유용한 스택을 볼 수 있다.
+템플릿 instruction으로 바로 이동할 수 있는 좀 더 유용한 스택을 볼 수 있다.
 
 ![img](/assets/img/angular/angular11update4.png)
 
-![img](/assets/img/angular/angular11update5.png)
+<br/>
 
 #### TypeScript 3.7 - Optional Chaning
 
@@ -113,11 +122,13 @@ ng serve --hmr
 
 개발하는 동안 컴포넌트, 템플릿, 스타일 코드를 변경해도 실행 중인 애플리케이션에 화면 새로고침 없이 즉시 반영된다.
 
+<br/>
+
 ## 3. Angular 11 Update
 
-![img](/assets/img/angular/angular11update1.png)
+> 업데이트 Check List 중 수정사항이 있거나 확인해봐야 하는 항목 위주로 작성하였습니다.
 
-업데이트 Check List 중 수정사항이 있거나 확인해봐야 하는 항목 위주로 작성하였습니다.
+![img](/assets/img/angular/angular11update1.png)
 
 ```bash
 ng update @angular/core@8 @angular/cli@8
@@ -128,6 +139,8 @@ ng update @angular/core@10 @angular/cli@10
 
 ng update @angular/core @angular/cli
 ```
+
+<br/>
 
 ### 주요 Check List
 
@@ -140,6 +153,8 @@ ng update @angular/core @angular/cli
 - [x] `keyvalue` pipe 동작 확인
 - [x] asyncValidator가 validation 동작을 완료한 후 `statusChange` 이벤트를 발생시키도록 변경됨. 동작 확인.
 - [x] RouteReuseStrategy의 `shouldReuseRoute` 인자 순서가 변경 됨으로써 동작 달라지는 부분 없을지 확인
+
+<br/>
 
 ## 참고
 
