@@ -17,7 +17,7 @@ Angular 8에서 Angular 11로 업데이트를 하기 전에 미리 변경점이�
 
 ## 1. Angular 8 → 11 업데이트시 주요 변경사항
 
-### [Angular 9](https://v9.angular.io/guide/updating-to-version-9)
+### Angular 9
 
 - Default 컴파일러 `Ivy`로 변경 ([Ivy 호환성 가이드 참고](https://angular.io/guide/ivy-compatibility))
 - Default로 [AOT mode](https://v9.angular.io/guide/aot-compiler)로 컴파일
@@ -28,13 +28,13 @@ Angular 8에서 Angular 11로 업데이트를 하기 전에 미리 변경점이�
 - esm5, fesm5 → esm2015, fesm2015로 entrypoints 변경 ([Angular Package Format](https://docs.google.com/document/d/1CZC2rcpxffTDfRDs6p1cfbmKNLA6x5O-NtkJglDaBVs/preview))
 - [CSS Binding 규칙](https://angular.io/guide/attribute-binding#styling-precedence) 변경
 
-### [Angular 10](https://v10.angular.io/guide/updating-to-version-10)
+### Angular 10
 
 - TypeScript 3.7 지원 중단 → TypeScript 3.9 버전 업데이트
 - `number` 타입의 Input field는 값이 변경될 때마다 단 한 번의 `valueChanges` event를 발생시킨다.
 - `minLength`, `maxLength` validators 는 오직 length 프로퍼티가 있는 경우에만 동작한다.
 
-### [Angular 11](https://v10.angular.io/guide/updating-to-version-10)
+### Angular 11
 
 - IE 9, 10, IE 모바일 지원 중단
 - TypeScript 3.9 지원 중단 → TypeScript 4.0 버전 업데이트
@@ -49,7 +49,7 @@ Angular 8에서 Angular 11로 업데이트를 하기 전에 미리 변경점이�
 
 > Angular 9 ~ 11 release notes를 보고 사용해보면 좋을 것 같은 기능들을 정리한 내용입니다.
 
-### [Angular 9](https://blog.angular.io/version-9-of-angular-now-available-project-ivy-has-arrived-23c97b63cfa3)
+### Angular 9
 
 #### 더 나아진 디버깅
 
@@ -60,8 +60,6 @@ Ivy는 디버깅 툴을 좀 더 다양하게 제공한다. Dev 모드로 실행�
 - Change Detection 의 결과를 확인하기 위해서 applyChanges 함수를 수동으로 실행 가능(Change Detection Trigger)
 
 ![img](/assets/img/angular/angular11update5.png)
-
-<br/>
 
 Ivy 이전에는 발생하는 에러의 실행 스택이 크게 도움이 되지 않았다.
 
@@ -74,6 +72,8 @@ Ivy에서는 함수 실행 스택이 좀 더 유용한 단위로 표시되기 �
 템플릿 instruction으로 바로 이동할 수 있는 좀 더 유용한 스택을 볼 수 있다.
 
 ![img](/assets/img/angular/angular11update4.png)
+
+<br/>
 
 #### TypeScript 3.7 - Optional Chaning
 
@@ -98,11 +98,11 @@ console.log(adventurer.someNonExistentMethod?.());
 // expected output: undefined
 ```
 
-### [Angular 10](https://blog.angular.io/version-10-of-angular-now-available-78960babd41)
+### Angular 10
 
 딱히 없어 보임...
 
-### [Angular 11](https://blog.angular.io/version-11-of-angular-now-available-74721b7952f7)
+### Angular 11
 
 #### 핫 모듈 갱신 기능 지원
 
