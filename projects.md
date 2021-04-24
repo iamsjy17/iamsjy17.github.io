@@ -18,8 +18,8 @@ permalink: /projects/
 
 #### 진행기간
 
-- 2018.12 ~ 2018.04 (1.0v)
-- 2018.05 ~ 진행중 (1.1v)
+- 2018.12 ~ 2018.05 (1.0v)
+- 2018.05 ~ 진행중
 
 #### 주요내용
 
@@ -28,12 +28,11 @@ permalink: /projects/
 - Zoom In/Zoom out, Data Table 등 사용성 지원
 - 다양한 API 지원(Update LIne, Font, Title, Color등 프로퍼티 제어)
 
-#### Skill
+#### Skills
 
-- Javascript(es6)
+- Javascript, webpack, babel
 - HTML5 Canvas
   - OffscreenCanvas(Multi thread Canvas Rendering)
   - Canvas 고해상도 지원
 - Message Polling 구조의 Rendering
 - Async Scheduling, requestAnimationFrame 최적화
-- webpack, babel

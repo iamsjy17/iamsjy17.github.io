@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "[Books] RxJS Quick Start"
+title: "[서평] RxJS Quick Start"
 date: 2020-01-04 21:00:00
 author: Jewoo.Song
-categories: Books
+categories: 서평
 tags:
   - RxJS Quick Start
   - RxJS 서평

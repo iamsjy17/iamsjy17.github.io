@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "[Books] Angular Essentials"
+title: "[서평] Angular Essentials"
 date: 2020-05-04 1:00:00
 author: Jewoo.Song
-categories: Books
+categories: 서평
 tags:
   - Angular Essentials
   - Angular Essentials 서평

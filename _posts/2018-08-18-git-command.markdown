@@ -7,11 +7,6 @@ categories: Git
 tags: git git명령어
 ---
 
-매일 git 을 쓰면서도 `unstaged file` 만 `discard`하려면 어떻게 하더라..?  
-`index`에 있는 파일만 `working tree`로 보내려면 어떻게 하더라..?
-
-몇개의 명령어를 처보고, help 를 찾아보고 할 때가 많아서 상황별로 명령어를 정리해 두기로 했습니다.
-
 ## Repository 생성
 
 #### Local Repository 생성
