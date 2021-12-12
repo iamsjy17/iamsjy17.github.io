@@ -10,16 +10,12 @@ permalink: /projects/
 
 #### 소개
 
-- [Plotta.js GitHub](https://github.com/iamsjy17/Plotta.js)
-- [Demo](https://iamsjy17.github.io/plotta.js-page/)
-
+[GitHub](https://github.com/iamsjy17/Plotta.js) | [Demo](https://iamsjy17.github.io/plotta.js-page/)
 ![Alt plotta_demo1](/assets/img/project/plotta_demo1.gif)
-![Alt plotta_demo1](/assets/img/project/plotta_demo2.gif)
 
 #### 진행기간
 
 - 2018.12 ~ 2019.05 (1.0v)
-- 2019.05 ~ 진행중
 
 #### 주요내용
 

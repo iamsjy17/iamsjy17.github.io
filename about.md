@@ -6,14 +6,6 @@ permalink: /about/
 
 <!-- <img src="{{ site.baseurl }}/assets/profile-placeholder.gif" title="Profile Picture" class="profile"> -->
 
+### Email : iamsjy0808@gmail.com
 
-
-### Email
-
-iamsjy0808@gmail.com
-
-### Github Repository
-
-https://github.com/iamsjy17
-
-
+### Github : [https://github.com/iamsjy17](https://github.com/iamsjy17)
