@@ -123,7 +123,7 @@ npm i --save-dev eslint eslint-plugin-import
 # Airbnb 패키지
 npm i --save-dev eslint-config-airbnb-base
 
----------------기존 세팅---------------
+# ---------------기존 세팅---------------
 
 # Typescript ESLint 패키지
 npm i --save-dev @typescript-eslint/eslint-plugin @typescript-eslint/parser
@@ -244,7 +244,7 @@ class CanvasHelper {
 
 몇 년 동안 방치했던 코드이다 보니 리팩터링하고 싶은 곳이 많이 보였지만 참고 any도 남발하면서 1단계 마이그레이션을 마첬는데요. 굉장히 불편하네요,,
 
-작업했던 [PR](https://github.com/iamsjy17/Plotta.js/pull/33) 입니다.
+작업했던 [PR](https://github.com/iamsjy17/Plotta.js/pull/34) 입니다.
 
 다음은 noImplicitAny 옵션을 키고 any를 제외하고 타입들을 제외할 예정입니다!
 
