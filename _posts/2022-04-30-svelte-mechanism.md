@@ -111,18 +111,11 @@ export default app;
 
 **bundle.js**
 
+> 너무 길어서 생략..(문서에 전부 첨부하기 길다는 것이지 optimizing 되지 않은 전체 코드가 600라인 밖에 되지 않는다.) 원본 bundle.js를 보고싶 으시다면 https://svelte.dev/tutorial/reactive-declarations 예제를 빌드 해보세요.
+
 ```js
 (function (l, r) {
-  if (!l || l.getElementById("livereloadscript")) return;
-  r = l.createElement("script");
-  r.async = 1;
-  r.src =
-    "//" +
-    (self.location.host || "localhost").split(":")[0] +
-    ":35729/livereload.js?snipver=1";
-  r.id = "livereloadscript";
-  l.getElementsByTagName("head")[0].appendChild(r);
-})(self.document);
+//...
 var app = (function () {
   "use strict";
 
@@ -132,24 +125,12 @@ var app = (function () {
     //...
   }
   function update($$) {
-    if ($$.fragment !== null) {
-      $$.update();
-      run_all($$.before_update);
-      const dirty = $$.dirty;
-      $$.dirty = [-1];
-      $$.fragment && $$.fragment.p($$.ctx, dirty);
-      $$.after_update.forEach(add_render_callback);
-    }
+      //...
   }
 
   //...
   function make_dirty(component, i) {
-    if (component.$$.dirty[0] === -1) {
-      dirty_components.push(component);
-      schedule_update();
-      component.$$.dirty.fill(0);
-    }
-    component.$$.dirty[(i / 31) | 0] |= 1 << i % 31;
+      //...
   }
 
   function init(
@@ -167,24 +148,13 @@ var app = (function () {
 
   class SvelteComponent {
     $destroy() {
-      destroy_component(this, 1);
-      this.$destroy = noop;
+        //...
     }
     $on(type, callback) {
-      const callbacks =
-        this.$$.callbacks[type] || (this.$$.callbacks[type] = []);
-      callbacks.push(callback);
-      return () => {
-        const index = callbacks.indexOf(callback);
-        if (index !== -1) callbacks.splice(index, 1);
-      };
+        //...
     }
     $set($$props) {
-      if (this.$$set && !is_empty($$props)) {
-        this.$$.skip_bound = true;
-        this.$$set($$props);
-        this.$$.skip_bound = false;
-      }
+        //...
     }
   }
 
@@ -202,15 +172,7 @@ var app = (function () {
 
   class App extends SvelteComponentDev {
     constructor(options) {
-      super(options);
-      init(this, options, instance, create_fragment, safe_not_equal, {});
-
-      dispatch_dev("SvelteRegisterComponent", {
-        component: this,
-        tagName: "App",
-        options,
-        id: create_fragment.name,
-      });
+        //...
     }
   }
 
@@ -587,10 +549,15 @@ p: function update(ctx, [dirty]) {
 
 > 결과적으로 Svelte가 말하는 `컴파일 단계에서 Virtual DOM diffing과 같은 기술을 사용하는 대신 앱의 상태가 변경될 때 DOM을 직접 업데이트하는 코드로 만들어 준다고 한다.` 는 진짜다.
 
+<br>
+<br>
+
 기존 프레임워크와 뭐가 다를까요?
 
 트리쉐이킹이 되겠지만 프레임워크를 동작하기 위한 프레임워크 코어 코드들이 로드되고 컴파일된 앱단의 코드들은 이 프레임워크에 효율적으로 명령할 수 있는 코드들을 만들어냅니다.
 
+<br>
+<br>
 예시) Angular ivy(incremental DOM) 앱 빌드 결과
 
 > 앱 빌드는 프레임워크 코드를 효율적으로 사용하도록 지시된 결과물이다.
@@ -645,6 +612,9 @@ AppComponent.ngComponentDef = i0.ɵɵdefineComponent({
 ```
 
 이에 비해 svelte는 모든 상태와 동작이 정의된 코드가 생성됩니다.
+
+<br>
+<br>
 
 실제 프로덕션 레벨에서 사용하면 어떨지 모르겠지만(튜토리얼 깨는 중),
 
