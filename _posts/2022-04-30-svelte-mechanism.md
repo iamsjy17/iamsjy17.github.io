@@ -18,7 +18,7 @@ tags:
 
 컴파일 단계에서 Virtual DOM diffing과 같은 기술을 사용하는 `대신 앱의 상태가 변경될 때 DOM을 직접 업데이트하는 코드`로 만들어 준다고 합니다.
 
-어떻게 프레임워크가 없는 작은 js로 컴파일 되는데, Virtual DOM 보다 Incremental DOM 보다 빠르고, Store, Reactivity, Binding (단방향, 양방향) 을 모두 지원하는 코드가 다 포함될까?
+어떻게 프레임워크가 없는 작은 js로 컴파일 되는데, Virtual DOM 보다 Incremental DOM 보다 빠르고, Store, Reactivity, Binding (단방향, 양방향) 을 모두 지원하는 코드가 다 포함될까요?
 
 그래서 컴파일된 js 파일을 뜯어보기로 했습니다.
 
@@ -48,7 +48,7 @@ npm run dev
 
 ## 컴파일 전/후 코드 비교
 
-최대한 간단하게 $(반응성)을 포함하고 있는 코드를 분석해 보겠습니다.
+최대한 간단하게 반응형 변수(`$`)을 포함하고 있는 코드를 분석해 보겠습니다.
 
 ### 컴파일 전
 
@@ -564,6 +564,8 @@ p: function update(ctx, [dirty]) {
 ### 런타임 동작 방식 정리
 
 ![svelte](/assets/img/svelte/svelte6.png)
+
+> 이미지가 잘 보이지 않는다면 새 탭으로 열기로 봐주세요!
 
 1. 동작 발생 시 해당 동작에 대한 handler가 수행된다.
 2. handler 내부에서 invalidate 함수가 실행된다.
