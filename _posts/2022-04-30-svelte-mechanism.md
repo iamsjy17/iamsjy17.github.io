@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "[Svelte] 스벨트는 어떻게 상태 변경을 DOM에 반영할까? (스벨트의 동작 원리)"
-date: 2022-04-30 19:00:00
+date: 2022-04-30 14:00:00
 author: Jewoo.Song
 categories: Svelte
 tags:
@@ -20,7 +20,7 @@ tags:
 
 어떻게 프레임워크가 없는 작은 js로 컴파일 되는데, Virtual DOM 보다 Incremental DOM 보다 빠르고, Store, Reactivity, Binding (단방향, 양방향) 을 모두 지원하는 코드가 다 포함될까?
 
-그래서 컴파일된 js 파일을 뜯어보기로 했습니다. (이 시간에 그냥 문서나 더 보고 구현을 해보면서 문제를 해결해 보는 게 더 도움이 될 거 같지만 그냥 해본다..)
+그래서 컴파일된 js 파일을 뜯어보기로 했습니다.
 
 ## 앱 만들기
 
@@ -297,30 +297,9 @@ function init(
   const parent_component = current_component;
   set_current_component(component);
   const $$ = (component.$$ = {
-    fragment: null,
-    ctx: null,
-    // state
-    props,
-    update: noop,
-    not_equal,
-    bound: blank_object(),
-    // lifecycle
-    on_mount: [],
-    on_destroy: [],
-    on_disconnect: [],
-    before_update: [],
-    after_update: [],
-    context: new Map(
-      options.context || (parent_component ? parent_component.$$.context : [])
-    ),
-    // everything else
-    callbacks: blank_object(),
-    dirty,
-    skip_bound: false,
-    root: options.target || parent_component.$$.root,
+    //...
   });
-  append_styles && append_styles($$.root);
-  let ready = false;
+  //...
   $$.ctx = instance
     ? instance(component, options.props || {}, (i, ret, ...rest) => {
         const value = rest.length ? rest[0] : ret;
@@ -332,30 +311,9 @@ function init(
       })
     : [];
   $$.update();
-  ready = true;
-  run_all($$.before_update);
-  // `false` as a special case of no DOM component
+
   $$.fragment = create_fragment ? create_fragment($$.ctx) : false;
-  if (options.target) {
-    if (options.hydrate) {
-      const nodes = children(options.target);
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      $$.fragment && $$.fragment.l(nodes);
-      nodes.forEach(detach);
-    } else {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      $$.fragment && $$.fragment.c();
-    }
-    if (options.intro) transition_in(component.$$.fragment);
-    mount_component(
-      component,
-      options.target,
-      options.anchor,
-      options.customElement
-    );
-    flush();
-  }
-  set_current_component(parent_component);
+  //...
 }
 ```
 
@@ -363,7 +321,6 @@ init 함수 내에서 app instance의 $$ 프로퍼티가 만들어지고 이 프
 
 ```js
 //init function
-
 const $$ = (component.$$ = {
   fragment: null,
   ctx: null,
@@ -526,6 +483,8 @@ function make_dirty(component, i) {
 
 flag가 세워진 후 다음 microtask 까지 기다린 후 flush 함수가 실행됩니다.
 
+먼저 dirty_components에 추가된 컴포넌트들을 순회하며 각자 observe 하고 있는 변수들을 업데이트합니다.
+
 ```js
 function flush() {
   const saved_component = current_component;
@@ -536,30 +495,11 @@ function flush() {
       set_current_component(component);
       update(component.$$);
     }
-    set_current_component(null);
-    dirty_components.length = 0;
-    flushidx = 0;
-    while (binding_callbacks.length) binding_callbacks.pop()();
-
-    for (let i = 0; i < render_callbacks.length; i += 1) {
-      const callback = render_callbacks[i];
-      if (!seen_callbacks.has(callback)) {
-        seen_callbacks.add(callback);
-        callback();
-      }
-    }
-    render_callbacks.length = 0;
+    //...
   } while (dirty_components.length);
-  while (flush_callbacks.length) {
-    flush_callbacks.pop()();
-  }
-  update_scheduled = false;
-  seen_callbacks.clear();
-  set_current_component(saved_component);
+  //...
 }
 ```
-
-여기서 dirty_components에 추가된 컴포넌트들을 순회하며 각자 observe 하고 있는 변수들을 업데이트합니다.
 
 ```js
 function update($$) {
@@ -570,7 +510,7 @@ function update($$) {
 }
 ```
 
-다시 invalidate를 반복하며 dirty flag를 세워줍니다.
+반응형 변수(`$`)에 대해 다시 invalidate를 반복하며 dirty flag를 세워줍니다.
 
 ```js
 $$self.$$.update = () => {
@@ -580,7 +520,10 @@ $$self.$$.update = () => {
 };
 ```
 
-그리고 각 fragment의 update(p) 함수를 다시 실행해줍니다.
+<br>
+<br>
+
+현재 microtask 내에 모든 dirty flag가 업데이트된 후 각 fragment의 update(p) 함수를 실행해 줍니다.
 
 ```js
 function update($$) {
@@ -699,11 +642,13 @@ AppComponent.ngComponentDef = i0.ɵɵdefineComponent({
 ); //# sourceMappingURL=app.component.js.map
 ```
 
-이에 비해 svelte는 모든 상태 값과 핸들러의 동작이 정의된 코드가 생성됩니다.
+이에 비해 svelte는 모든 상태와 동작이 정의된 코드가 생성됩니다.
 
 실제 프로덕션 레벨에서 사용하면 어떨지 모르겠지만(튜토리얼 깨는 중),
 
 스벨트의 동작 방식이나 store 사용법 반응형 변수들($, 이거 뭐라고 불러야 할지 애매해서 계속 괄호 치게 됨..) 을 템플릿 내에서 사용할 때 auto unsubscribe 되는 것, binding 등등 꽤 괜찮은 것 같습니다.
+
+> 몇몇 문법들은 거부감이 들기도 한다..
 
 이후에 뭐라도 개발해 보면서 사이드 이펙트는 어떻게 관리해야 할지, 구조를 어떻게 잡아야 할지 고민해 볼 기회가 있으면 다시 관련 글을 써보도록 하겠습니다!
 
