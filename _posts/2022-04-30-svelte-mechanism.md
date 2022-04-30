@@ -33,9 +33,13 @@ npx degit sveltejs/template svelte-app
 #npx degit sveltejs/template-webpack hello-svelte
 ```
 
+<br>
+
 ### **Vscode Svelte plugin 설치 (Svelte for VS Code)**
 
 ![svelte](/assets/img/svelte/svelte1.png)
+
+<br>
 
 ### Svelte 실행
 
@@ -45,6 +49,8 @@ npm run dev
 ```
 
 ![svelte](/assets/img/svelte/svelte2.png)
+
+<br>
 
 ## 컴파일 전/후 코드 비교
 
@@ -83,6 +89,8 @@ const app = new App({
 export default app;
 ```
 
+<br>
+
 ### 컴파일 후
 
 > production 모드로 빌드 한 후 실행한다. 진짜 코딱지만한 번들이 매우 빠르게 만들어졌다..
@@ -111,7 +119,8 @@ export default app;
 
 **bundle.js**
 
-> 너무 길어서 생략..(문서에 전부 첨부하기 길다는 것이지 optimizing 되지 않은 전체 코드가 600라인 밖에 되지 않는다.) 원본 bundle.js를 보고싶 으시다면 https://svelte.dev/tutorial/reactive-declarations 예제를 빌드 해보세요.
+> 너무 길어서 생략..(문서에 전부 첨부하기 길다는 것이지 optimizing 되지 않은 전체 코드가 600라인 밖에 되지 않는다.)
+> 원본 bundle.js를 보고 싶으시다면 https://svelte.dev/tutorial/reactive-declarations 예제를 빌드 해보세요.
 
 ```js
 (function (l, r) {
@@ -239,6 +248,8 @@ class SvelteComponent {
 }
 ```
 
+<br>
+
 ### init
 
 App class 생성자에서 init 함수가 실행됩니다.
@@ -308,6 +319,8 @@ const $$ = (component.$$ = {
 });
 ```
 
+<br>
+
 ### instance
 
 `$$.ctx`에 instance가 할당됩니다.
@@ -354,6 +367,8 @@ function instance($$self, $$props, $$invalidate) {
 }
 ```
 
+<br>
+
 ### fragment
 
 `$$.fragment`에 dom 모양이 결정되어서 할당됩니다.
@@ -392,12 +407,16 @@ function create_fragment(ctx) {
 ## state와 dom 업데이트
 
 **before**
-![svelte](/assets/img/svelte/svelte4.png)
+<img src="/assets/img/svelte/svelte4.png">
 
-**update**
-![svelte](/assets/img/svelte/svelte5.png)
+**after**
+<img src="/assets/img/svelte/svelte5.png">
+
+<br>
 
 버튼이 클릭되었을 때 count는 1이 되고, doubled는 2가 되고 렌더링은 어떻게 업데이트되는지 보겠습니다.
+
+<br>
 
 ### invalidate 함수
 
@@ -410,6 +429,8 @@ function handleClick() {
 ```
 
 넣어주었던 clickHandler가 내부에서 invalidate 함수를 실행해줍니다.
+
+<br>
 
 > invalidate 함수는 instance 생성 시점에 결정되어서 들어간다.
 
@@ -426,6 +447,8 @@ $$.ctx = instance ? instance(component, options.props || {}, (i,ret,...rest)=>{
 ) : [];
 ```
 
+<br>
+
 현재 컨텍스트의 값과 업데이트한 값이 같은지 판단하고, 다르다면 dirty flag를 세워줍니다.
 
 이 과정에서 렌더링와 상태를 업데이트할 컴포넌트가 dirty_components에 추가되고 해당 컴포넌트에서 업데이트할 상태 값의 index가 비트 연산으로 플래그가 세워집니다.
@@ -440,6 +463,8 @@ function make_dirty(component, i) {
   component.$$.dirty[(i / 31) | 0] |= 1 << i % 31;
 }
 ```
+
+<br>
 
 ### flush
 
@@ -483,7 +508,6 @@ $$self.$$.update = () => {
 ```
 
 <br>
-<br>
 
 현재 microtask 내에 모든 dirty flag가 업데이트된 후 각 fragment의 update(p) 함수를 실행해 줍니다.
 
@@ -521,6 +545,8 @@ p: function update(ctx, [dirty]) {
 },
 ```
 
+<br>
+
 ## 정리
 
 ### 런타임 동작 방식 정리
@@ -545,18 +571,20 @@ p: function update(ctx, [dirty]) {
    5. afterUpdate 콜백 실행 (부모 → 자식)
       최초 onMount 가 수행되기 전 수행된 afterUpdate는 (자식 → 부모)
 
+<br>
+
 ### 결론
 
 > 결과적으로 Svelte가 말하는 `컴파일 단계에서 Virtual DOM diffing과 같은 기술을 사용하는 대신 앱의 상태가 변경될 때 DOM을 직접 업데이트하는 코드로 만들어 준다고 한다.` 는 진짜다.
 
 <br>
-<br>
 
 기존 프레임워크와 뭐가 다를까요?
 
-트리쉐이킹이 되겠지만 프레임워크를 동작하기 위한 프레임워크 코어 코드들이 로드되고 컴파일된 앱단의 코드들은 이 프레임워크에 효율적으로 명령할 수 있는 코드들을 만들어냅니다.
+기존 프레임워크는 트리쉐이킹이 되겠지만 프레임워크를 동작하기 위한 프레임워크 코어 코드들이 로드되고 컴파일된 앱단의 코드들은 이 프레임워크에 효율적으로 명령할 수 있는 코드를 만들어냅니다.
 
-<br>
+이에 비해 svelte는 모든 상태와 동작이 정의된 DOM을 직접 업데이트하는 코드를 만들어냅니다.
+
 <br>
 예시) Angular ivy(incremental DOM) 앱 빌드 결과
 
@@ -611,16 +639,11 @@ AppComponent.ngComponentDef = i0.ɵɵdefineComponent({
 ); //# sourceMappingURL=app.component.js.map
 ```
 
-이에 비해 svelte는 모든 상태와 동작이 정의된 코드가 생성됩니다.
-
-<br>
 <br>
 
 실제 프로덕션 레벨에서 사용하면 어떨지 모르겠지만(튜토리얼 깨는 중),
 
-스벨트의 동작 방식이나 store 사용법 반응형 변수들($, 이거 뭐라고 불러야 할지 애매해서 계속 괄호 치게 됨..) 을 템플릿 내에서 사용할 때 auto unsubscribe 되는 것, binding 등등 꽤 괜찮은 것 같습니다.
-
-> 몇몇 문법들은 거부감이 들기도 한다..
+스벨트의 동작 방식이나 store 사용법 반응형 변수들($, 이거 뭐라고 불러야 할지 애매해서 계속 괄호 치게 됨..) 을 템플릿 내에서 사용할 때 auto unsubscribe 되는 것, binding 등등 꽤 괜찮은 것 같습니다. _~~몇몇 문법들은 거부감이 들기도 한다..~~_
 
 이후에 뭐라도 개발해 보면서 사이드 이펙트는 어떻게 관리해야 할지, 구조를 어떻게 잡아야 할지 고민해 볼 기회가 있으면 다시 관련 글을 써보도록 하겠습니다!
 
