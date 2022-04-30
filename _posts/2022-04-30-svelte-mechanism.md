@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "[Svelte] 스벨트는 어떻게 상태 변경을 DOM에 반영할까? (스벨트의 동작 원리)"
-date: 2022-04-30 21:00:00
+date: 2022-04-30 19:00:00
 author: Jewoo.Song
 categories: Svelte
 tags:
@@ -14,13 +14,13 @@ tags:
   - 스벨트 컴파일
 ---
 
-스벨트 공식 문서의 설명을 보면 스벨트는 React, Vue, Angular와 같은 기존 프레임워크에서 브라우저에서 하는 많은 작업을 컴파일 단계로 옮겼다고 한다.
+스벨트 공식 문서의 설명을 보면 스벨트는 React, Vue, Angular와 같은 기존 프레임워크에서 브라우저에서 하는 많은 작업을 컴파일 단계로 옮겼다고 합니다.
 
-컴파일 단계에서 Virtual DOM diffing과 같은 기술을 사용하는 `대신 앱의 상태가 변경될 때 DOM을 직접 업데이트하는 코드로 만들어 준다고 한다.`
+컴파일 단계에서 Virtual DOM diffing과 같은 기술을 사용하는 `대신 앱의 상태가 변경될 때 DOM을 직접 업데이트하는 코드`로 만들어 준다고 합니다.
 
 어떻게 프레임워크가 없는 작은 js로 컴파일 되는데, Virtual DOM 보다 Incremental DOM 보다 빠르고, Store, Reactivity, Binding (단방향, 양방향) 을 모두 지원하는 코드가 다 포함될까?
 
-그래서 컴파일된 js 파일을 뜯어보기로 했다. (이 시간에 그냥 문서나 더 보고 구현을 해보면서 문제를 해결해 보는 게 더 도움이 될 거 같지만 그냥 해본다..)
+그래서 컴파일된 js 파일을 뜯어보기로 했습니다. (이 시간에 그냥 문서나 더 보고 구현을 해보면서 문제를 해결해 보는 게 더 도움이 될 거 같지만 그냥 해본다..)
 
 ## 앱 만들기
 
@@ -48,7 +48,7 @@ npm run dev
 
 ## 컴파일 전/후 코드 비교
 
-처음은 최대한 간단하게 $(반응성)을 포함하고 있는 코드로 한다.
+최대한 간단하게 $(반응성)을 포함하고 있는 코드를 분석해 보겠습니다.
 
 ### 컴파일 전
 
@@ -89,7 +89,7 @@ export default app;
 
 ![svelte](/assets/img/svelte/svelte3.png)
 
-코드 보기에 용이하도록 dev 모드로 실행한 후 코드 분석을 해보기로 한다.
+코드 보기에 용이하도록 dev 모드로 실행한 후 코드 분석해 보겠습니다.
 
 **index.html**
 
@@ -223,11 +223,13 @@ var app = (function () {
 //# sourceMappingURL=bundle.js.map
 ```
 
-다소 무식한 방법이지만 일단 bundle.js에 있는 모든 함수에 브레이킹 포인트를 찍고 플로우를 먼저 확인하고, 그 이후 주요 함수들을 추려본다.
+다소 무식한 방법이지만 일단 bundle.js에 있는 모든 함수에 브레이킹 포인트를 찍고 플로우를 먼저 확인하고, 그 이후 주요 함수들을 추려보겠습니다.
 
 ## 앱 생성
 
-먼저 앱을 생성한다. App class는 SvelteComponent를 상속받는다
+먼저 앱 생성 부분을 보겠습니다.
+
+App class는 SvelteComponent를 상속받습니다.
 
 ```js
 const app = new App({
@@ -277,9 +279,9 @@ class SvelteComponent {
 
 ### init
 
-App class 생성자에서 init 함수가 실행된다.
+App class 생성자에서 init 함수가 실행됩니다.
 
-이때 options는 App 생성자에 넣어주고 instance와 create_fragment, safe_not_equal는 상위 스코프에서 접근한다.
+이때 options는 App 생성자에 넣어주고 instance와 create_fragment, safe_not_equal는 상위 스코프에서 접근합니다.
 
 ```js
 function init(
@@ -357,7 +359,7 @@ function init(
 }
 ```
 
-init 함수 내에서 app instance의 $$ 프로퍼티가 만들어지고 이 프로퍼티는 핵심 역할을 한다.
+init 함수 내에서 app instance의 $$ 프로퍼티가 만들어지고 이 프로퍼티는 핵심 역할을 합니다.
 
 ```js
 //init function
@@ -389,7 +391,7 @@ const $$ = (component.$$ = {
 
 ### instance
 
-`$$.ctx`에 instance가 할당된다.
+`$$.ctx`에 instance가 할당됩니다.
 
 ```js
 //init function
@@ -406,9 +408,9 @@ $$.ctx = instance ? instance(component, options.props || {}, (i,ret,...rest)=>{
 }
 ```
 
-instance 함수에서 doubled와 count의 관계와 업데이트가 결정되어 있다.
+instance 함수에서 doubled와 count의 관계와 업데이트가 결정되어 있습니다.
 
-`$$.update`에 state 업데이트 함수가 할당된다.
+`$$.update`에 state 업데이트 함수가 할당됩니다.
 
 ```js
 function instance($$self, $$props, $$invalidate) {
@@ -435,7 +437,7 @@ function instance($$self, $$props, $$invalidate) {
 
 ### fragment
 
-`$$.fragment`에 dom 모양이 결정되어서 할당된다.
+`$$.fragment`에 dom 모양이 결정되어서 할당됩니다.
 
 ```js
 $$.fragment = create_fragment ? create_fragment($$.ctx) : false;
@@ -459,38 +461,12 @@ function create_fragment(ctx) {
       add_location(button, file, 9, 0, 105);
       add_location(p, file, 13, 0, 198);
     },
-    m: function mount(target, anchor) {
-      insert_dev(target, button, anchor);
-      append_dev(button, t0);
-      append_dev(button, t1);
-      append_dev(button, t2);
-      append_dev(button, t3);
-      insert_dev(target, t4, anchor);
-      insert_dev(target, p, anchor);
-      append_dev(p, t5);
-      append_dev(p, t6);
-      append_dev(p, t7);
-
-      if (!mounted) {
-        dispose = listen_dev(
-          button,
-          "click" /*handleClick*/,
-          ctx[2],
-          false,
-          false,
-          false
-        );
-        mounted = true;
-      }
-    },
     //...
   };
 
   return block;
 }
 ```
-
-mount 함수에서 target이 App 생성 시점에 body이고 mount 할 때 각 엘리먼트 요소가 삽입되고 이벤트 핸들러를 할당한다.
 
 ## 런타임 동작
 
@@ -502,7 +478,9 @@ mount 함수에서 target이 App 생성 시점에 body이고 mount 할 때 각 �
 **update**
 ![svelte](/assets/img/svelte/svelte5.png)
 
-버튼이 클릭되었을 때 count는 1이 되고, doubled는 2가 되고 렌더링은 어떻게 업데이트되는지 보도록 한다.
+버튼이 클릭되었을 때 count는 1이 되고, doubled는 2가 되고 렌더링은 어떻게 업데이트되는지 보겠습니다.
+
+### invalidate 함수
 
 **handleClick**
 
@@ -512,9 +490,9 @@ function handleClick() {
 }
 ```
 
-### invalidate 함수
+넣어주었던 clickHandler가 내부에서 invalidate 함수를 실행해줍니다.
 
-넣어주었던 clickHandler가 내부에 invalidate를 하도록 변환이 되었는데 이 invalidate 함수는 instance 생성 시점에 결정되어서 들어간다.
+> invalidate 함수는 instance 생성 시점에 결정되어서 들어간다.
 
 ```js
 $$.ctx = instance ? instance(component, options.props || {}, (i,ret,...rest)=>{
@@ -529,15 +507,9 @@ $$.ctx = instance ? instance(component, options.props || {}, (i,ret,...rest)=>{
 ) : [];
 ```
 
-ctx는 instance 배열인데 아래와 같이 앱 내에 상태 값과 핸들러로 되어 있다.
+현재 컨텍스트의 값과 업데이트한 값이 같은지 판단하고, 다르다면 dirty flag를 세워줍니다.
 
-```js
-[count, doubled, handleClick];
-```
-
-현재 컨텍스트의 값과 업데이트한 값이 같은지 판단하고, 다르다면 dirty flag를 세워준다.
-
-이 과정에서 렌더링와 상태를 업데이트할 컴포넌트가 dirty_components에 추가되고 해당 컴포넌트에서 업데이트할 상태 값의 index가 비트 연산으로 플래그가 세워진다.
+이 과정에서 렌더링와 상태를 업데이트할 컴포넌트가 dirty_components에 추가되고 해당 컴포넌트에서 업데이트할 상태 값의 index가 비트 연산으로 플래그가 세워집니다.
 
 ```js
 function make_dirty(component, i) {
@@ -552,14 +524,12 @@ function make_dirty(component, i) {
 
 ### flush
 
-flag가 세워진 후 다음 microtask 까지 기다린 후 flush 함수가 실행된다.
+flag가 세워진 후 다음 microtask 까지 기다린 후 flush 함수가 실행됩니다.
 
 ```js
 function flush() {
   const saved_component = current_component;
   do {
-    // first, call beforeUpdate functions
-    // and update components
     while (flushidx < dirty_components.length) {
       const component = dirty_components[flushidx];
       flushidx++;
@@ -570,13 +540,10 @@ function flush() {
     dirty_components.length = 0;
     flushidx = 0;
     while (binding_callbacks.length) binding_callbacks.pop()();
-    // then, once components are updated, call
-    // afterUpdate functions. This may cause
-    // subsequent updates...
+
     for (let i = 0; i < render_callbacks.length; i += 1) {
       const callback = render_callbacks[i];
       if (!seen_callbacks.has(callback)) {
-        // ...so guard against infinite loops
         seen_callbacks.add(callback);
         callback();
       }
@@ -592,7 +559,7 @@ function flush() {
 }
 ```
 
-여기서 dirty_components에 추가된 컴포넌트들을 순회하며 각자 observe 하고 있는 변수들을 업데이트한다.
+여기서 dirty_components에 추가된 컴포넌트들을 순회하며 각자 observe 하고 있는 변수들을 업데이트합니다.
 
 ```js
 function update($$) {
@@ -603,7 +570,7 @@ function update($$) {
 }
 ```
 
-다시 invalidate를 반복하며 dirty flag를 세워준다.
+다시 invalidate를 반복하며 dirty flag를 세워줍니다.
 
 ```js
 $$self.$$.update = () => {
@@ -613,7 +580,7 @@ $$self.$$.update = () => {
 };
 ```
 
-그리고 각 fragment의 update(p) 함수를 다시 실행해준다.
+그리고 각 fragment의 update(p) 함수를 다시 실행해줍니다.
 
 ```js
 function update($$) {
@@ -626,7 +593,7 @@ function update($$) {
 }
 ```
 
-여기서 비트 연산된 dirty 결과에 따라서 각 dom 요소들을 직접 업데이트한다.
+여기서 비트 연산된 dirty 결과에 따라서 각 dom 요소들을 직접 업데이트합니다.
 
 ```js
 p: function update(ctx, [dirty]) {
@@ -673,11 +640,11 @@ p: function update(ctx, [dirty]) {
 
 ### 결론
 
-결과적으로 Svelte가 말하는 `컴파일 단계에서 Virtual DOM diffing과 같은 기술을 사용하는 대신 앱의 상태가 변경될 때 DOM을 직접 업데이트하는 코드로 만들어 준다고 한다.` 는 진짜다.
+> 결과적으로 Svelte가 말하는 `컴파일 단계에서 Virtual DOM diffing과 같은 기술을 사용하는 대신 앱의 상태가 변경될 때 DOM을 직접 업데이트하는 코드로 만들어 준다고 한다.` 는 진짜다.
 
-기존 프레임워크와 뭐가 다를까?
+기존 프레임워크와 뭐가 다를까요?
 
-트리쉐이킹이 되겠지만 프레임워크를 동작하기 위한 프레임워크 코어 코드들이 로드되고 컴파일된 앱단의 코드들은 이 프레임워크에 효율적으로 명령할 수 있는 코드들을 만들어낸다.
+트리쉐이킹이 되겠지만 프레임워크를 동작하기 위한 프레임워크 코어 코드들이 로드되고 컴파일된 앱단의 코드들은 이 프레임워크에 효율적으로 명령할 수 있는 코드들을 만들어냅니다.
 
 예시) Angular ivy(incremental DOM) 앱 빌드 결과
 
@@ -732,7 +699,13 @@ AppComponent.ngComponentDef = i0.ɵɵdefineComponent({
 ); //# sourceMappingURL=app.component.js.map
 ```
 
-이에 비해 svelte는 모든 상태 값과 핸들러의 동작이 정의된 코드가 생성된다.
+이에 비해 svelte는 모든 상태 값과 핸들러의 동작이 정의된 코드가 생성됩니다.
+
+실제 프로덕션 레벨에서 사용하면 어떨지 모르겠지만(튜토리얼 깨는 중),
+
+스벨트의 동작 방식이나 store 사용법 반응형 변수들($, 이거 뭐라고 불러야 할지 애매해서 계속 괄호 치게 됨..) 을 템플릿 내에서 사용할 때 auto unsubscribe 되는 것, binding 등등 꽤 괜찮은 것 같습니다.
+
+이후에 뭐라도 개발해 보면서 사이드 이펙트는 어떻게 관리해야 할지, 구조를 어떻게 잡아야 할지 고민해 볼 기회가 있으면 다시 관련 글을 써보도록 하겠습니다!
 
 ## 참고
 
